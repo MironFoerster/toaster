@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quests</title>
+</head>
+<body>
+<div id="quests">empty</div>
+</body>
+<script>
+    fetch ('{% url "personal:questsdata" %}')
+    .then(res => res.json())
+    .then(data => {document.getElementById('quests').innerHTML = data;console.log(data)});
+</script>
+</html>
