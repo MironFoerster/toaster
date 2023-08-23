@@ -17,4 +17,9 @@ export class AuthService {
   logoutUser(user: any) { // TODO add cleanup
     localStorage.removeItem('token');
   }
+
+  isAuthenticated() {
+    console.log(localStorage.getItem('token'));
+    return !! localStorage.getItem('token')
+  }
 }
