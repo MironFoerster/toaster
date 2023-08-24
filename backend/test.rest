@@ -1,11 +1,43 @@
 POST  http://127.0.0.1:8000/login/
 Content-Type: application/json
 
-{"username": "test", "password": "123abc---"}
+{"username": "test4", "password": "123abc---"}
 
 ###
 
 GET  http://127.0.0.1:8000/testtoken/
+Content-Type: application/json
+Authorization: Token a8b21acb6dfa637b300e97ffd365a8d6b83f02dc
+
+{}
+
+###
+
+POST http://127.0.0.1:8000/state/newitem/
+Content-Type: application/json
+Authorization: Token a8b21acb6dfa637b300e97ffd365a8d6b83f02dc
+
+{"prep": "einer ", "name": "gurke"}
+
+###
+
+GET http://127.0.0.1:8000/state/questdata/
+Content-Type: application/json
+Authorization: Token a8b21acb6dfa637b300e97ffd365a8d6b83f02dc
+
+{}
+
+###
+
+GET http://127.0.0.1:8000/state/bandata/
+Content-Type: application/json
+Authorization: Token a8b21acb6dfa637b300e97ffd365a8d6b83f02dc
+
+{}
+
+###
+
+GET http://127.0.0.1:8000/state/killvaldata/
 Content-Type: application/json
 Authorization: Token a8b21acb6dfa637b300e97ffd365a8d6b83f02dc
 
