@@ -7,7 +7,9 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./home.component.sass']
 })
 export class HomeComponent {
+  constructor(private _auth: AuthService) { }
 
-  constructor(public _auth: AuthService) { }
-
+  userIsAuthenticated() {
+    this._auth.isAuthenticated();
+  }
 }

@@ -6,5 +6,9 @@ import { AuthService } from '../services/auth.service'
   styleUrls: ['./dashboard.component.sass']
 })
 export class DashboardComponent {
-  constructor(public auth: AuthService) { }
+  constructor(private _auth: AuthService) { }
+
+  logoutUser() {
+    this._auth.logoutUser();
+  }
 }

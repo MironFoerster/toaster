@@ -1,5 +1,5 @@
 <p>home works!</p>
-<div *ngIf="_auth.isAuthenticated(); then thenBlock else elseBlock"></div>
+<div *ngIf="userIsAuthenticated(); then thenBlock else elseBlock"></div>
 <ng-template #thenBlock>
     <a routerLink="dashboard"><button type="button">Dashboard</button></a>
 </ng-template>
