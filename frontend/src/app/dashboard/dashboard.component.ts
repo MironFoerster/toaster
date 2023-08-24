@@ -6,6 +6,8 @@ import { AuthService } from '../services/auth.service'
   styleUrls: ['./dashboard.component.sass']
 })
 export class DashboardComponent {
+  vals = [{killer: "max", item: "messer"}]
+  bans = [{item: "kühlschrank"}]
   constructor(private _auth: AuthService) { }
 
   logoutUser() {

@@ -1,9 +1,22 @@
 <p>dashboard works!</p>
 <button (click)="logoutUser()">Logout</button>
 <a routerLink=''><button>Home</button></a>
-<div class="action-board">
-    <li ngFor="let action of actions;"></li>
-</div>
+<ul class="action-board">
+    <li *ngFor="let val of vals;">
+        <p>Hat {{val.killer}} dich mit {{val.item}} getötet?</p>
+        <div class="actn-btn-cont">
+            <button>Bitte? Nein!?😧</button>
+            <button type="button">Naja...schon iwie😒</button>
+        </div>
+    </li>
+    <li *ngFor="let ban of bans;">
+        <p>Was denkst du: Soll {{ban.item}} als Gegenstand gebannt werden?</p>
+        <div class="actn-btn-cont">
+            <button>Nee kann bleiben</button>
+            <button type="button">Ja bannen!</button>
+        </div>
+    </li>
+</ul>
 <router-outlet name="popup"></router-outlet>
 <a [routerLink]="[{outlets: {popup: 'quests'}}]"><button>Quests</button></a>
 <a [routerLink]="[{outlets: {popup: 'newitem'}}]"><button>New Item</button></a>
