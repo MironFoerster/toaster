@@ -3,7 +3,6 @@ import { AuthService } from '../services/auth.service'
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 
-
 export const dashboardGuard: CanActivateFn = (route, state) => {
   if (inject(AuthService).isAuthenticated()) {
     return true;

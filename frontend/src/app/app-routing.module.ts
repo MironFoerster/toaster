@@ -11,19 +11,21 @@ import { StatsComponent } from './stats/stats.component';
 import { LogsComponent } from './logs/logs.component';
 import { BlogsComponent } from './blogs/blogs.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { QuestsComponent } from './quests/quests.component';
+import { NewItemComponent } from './new-item/new-item.component';
+
 
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [loginGuard]},
   {path: '', component: HomeComponent, children: [
-    {path: 'stats', component: StatsComponent, outlet: "info"},
-    {path: 'logs', component: LogsComponent, outlet: "info"},
-    {path: 'blogs', component: BlogsComponent, outlet: "info"}
+    {path: 'stats', component: StatsComponent},
+    {path: 'logs', component: LogsComponent},
+    {path: 'blogs', component: BlogsComponent}
   ]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [dashboardGuard], children: [
-    {path: 'stats', component: StatsComponent, outlet: "info"},
-    {path: 'logs', component: LogsComponent, outlet: "info"},
-    {path: 'blogs', component: BlogsComponent, outlet: "info"}
+    {path: 'quests', component: QuestsComponent, outlet: "popup"},
+    {path: 'newitem', component: NewItemComponent, outlet: "popup"},
   ]},
 ];
 

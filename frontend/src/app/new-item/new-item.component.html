@@ -1,0 +1,18 @@
+<p>new-item works!</p>
+<div class="popup-container">
+    <a routerLink=".."><button type="button">close</button></a>
+    <h3>Füge dein Wort ein:</h3>
+    <form></form>
+    <p>
+        Max hat Moritz mit 
+        <select name="prep" id="prep-input" [(ngModel)]="itemData.prep">
+            <option value="einer ">einer</option>
+            <option value="einem ">einem</option>
+            <option value="">-</option>
+        </select>
+        <input type="text" id="item-input" [(ngModel)]="itemData.name">
+        umgebracht.
+    </p>
+    <button type="button" (click)="submitNewItem()">OK</button>
+    
+</div>
