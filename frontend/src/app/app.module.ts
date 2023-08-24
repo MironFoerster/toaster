@@ -18,6 +18,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { QuestsComponent } from './quests/quests.component';
 import { QuestComponent } from './quest/quest.component';
 import { NewItemComponent } from './new-item/new-item.component';
+import { KillValComponent } from './kill-val/kill-val.component';
+import { BanVoteComponent } from './ban-vote/ban-vote.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { NewItemComponent } from './new-item/new-item.component';
     QuestsComponent,
     QuestComponent,
     NewItemComponent,
+    KillValComponent,
+    BanVoteComponent,
   ],
   imports: [
     BrowserModule,
