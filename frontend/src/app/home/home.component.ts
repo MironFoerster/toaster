@@ -10,6 +10,7 @@ export class HomeComponent {
   constructor(private _auth: AuthService) { }
 
   userIsAuthenticated() {
+    console.log("hi")
     return this._auth.isAuthenticated();
   }
 }
