@@ -14,7 +14,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     const killvalUrl = "http://127.0.0.1:8000/state/killvaldata/";
     const banUrl = "http://127.0.0.1:8000/state/bandata/";
-    console.log("hdhdhd")
     this._api.fetchData(killvalUrl).subscribe(
       res => this.vals = res
     )

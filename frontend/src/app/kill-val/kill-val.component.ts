@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-kill-val',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./kill-val.component.sass']
 })
 export class KillValComponent {
-
+  @Input() valData: any;
 }
