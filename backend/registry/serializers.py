@@ -4,9 +4,10 @@ from .models import Log, Blog
 class LogSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Log
-        fields = ['is_info', 'info_title', 'info_test', 'item', 'killer', 'victim', 'message', 'success', 'distance', 'date']
+        fields = '__all__'
 
 class BlogSerializer(serializers.ModelSerializer):
+    log = LogSerializer()
     class Meta(object):
         model = Blog
-        fields = ['user', 'date', 'text']
+        fields = '__all__'

@@ -4,9 +4,9 @@ from .models import Quest, PendingBan
 class QuestSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Quest
-        fields = ['item', 'killer', 'victim']
+        fields = '__all__'
 
 class PendingBanSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = PendingBan
-        fields = ['item', 'note', 'pro', 'con']
+        fields = '__all__'
