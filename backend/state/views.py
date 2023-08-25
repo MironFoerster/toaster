@@ -18,6 +18,7 @@ def new_item(request):
     return Response("added Item")
 
 from .models import Quest, Item, PendingBan
+from registry.models import Log
 import random
 
 @api_view(['GET'])
@@ -43,7 +44,7 @@ def quests_data(request):
 @permission_classes([IsAuthenticated])
 def ban_data(request):
 
-    bans = PendingBan.objects.all().exclude(id__in=json.loads(request.user.voted_bans))
+    bans = PendingBan.objects.exclude(id__in=json.loads(request.user.voted_bans))
     serializer = PendingBanSerializer(bans, many=True)
     return Response(serializer.data)
 
@@ -51,6 +52,25 @@ def ban_data(request):
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def killval_data(request):
-    quests = Quest.objects.all().filter(victim=request.user).filter(await_valid=True)
+    quests = Quest.objects.filter(victim=request.user).filter(await_valid=True)
     serializer = QuestSerializer(quests, many=True)
     return Response(serializer.data)
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def killval_submit(request):
+    quest = Quest.objects.get(id=request.data['quest_id'])
+    if (request.data['valid']):
+        new_log = Log.objects.create(item=quest.item,
+                                     killer=quest.killer,
+                                     victim=quest.victim,
+                                     message="erdolcht", # TODO
+                                     distance=10)
+        new_log.save()
+        quest.delete()
+        return Response("kill validated")
+    else:
+        quest.pending_valid = False
+        quest.save()
+        return Response("kill prevented")
