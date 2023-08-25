@@ -1,8 +1,5 @@
 from django.db import models
 from toast_auth.models import User
-from .models import MsgTemplate
-# Create your models here.
-
 
 class Item(models.Model):
     name = models.CharField(max_length=200)
@@ -10,12 +7,16 @@ class Item(models.Model):
     frequency = models.IntegerField(default=1)
 
 
+class KillVerb(models.Model):
+    pastpart = models.CharField(max_length=200)
+    imperative = models.CharField(max_length=200)
+
 class Quest(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     killer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="killer_quests")
     victim = models.ForeignKey(User, on_delete=models.CASCADE, related_name="victim_quests")
     pending_valid = models.BooleanField(default=False)
-    msg_template = models.ForeignKey(MsgTemplate, on_delete=models.PREVENT)
+    verb = models.ForeignKey(KillVerb, on_delete=models.SET_NULL, null=True)
 
 
 class PendingBan(models.Model):
@@ -23,8 +24,3 @@ class PendingBan(models.Model):
     note = models.TextField(default="Keine Begründung.")
     pro = models.IntegerField(default=0)
     con = models.IntegerField(default=0)
-
-class MsgTemplate(models.Model):
-    template = models.CharField(max_length=250)
-    for_success = models.BooleanField()
-    frequency = models.IntegerField(default=0)

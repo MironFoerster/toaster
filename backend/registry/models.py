@@ -29,3 +29,8 @@ class Comment(models.Model):
     text = models.TextField(max_length=200)
     emote = models.CharField(max_length=1)
     date = models.DateTimeField(auto_now=True)
+
+class MsgTemplate(models.Model):
+    template = models.CharField(max_length=250)
+    for_success = models.BooleanField()
+    frequency = models.IntegerField(default=0)

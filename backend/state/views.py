@@ -65,8 +65,8 @@ def killval_submit(request):
         new_log = Log.objects.create(item=quest.item,
                                      killer=quest.killer,
                                      victim=quest.victim,
-                                     message="erdolcht", # TODO
-                                     distance=10)
+                                     message=quest.killer.username + " hat " + quest.victim.username + " mit " + quest.item.prep + quest.item.name + quest.verb.pastpart,
+                                     distance=10)  # TODO
         new_log.save()
         quest.delete()
         return Response("kill validated")
