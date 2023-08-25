@@ -20,6 +20,7 @@ import { QuestComponent } from './quest/quest.component';
 import { NewItemComponent } from './new-item/new-item.component';
 import { KillValComponent } from './kill-val/kill-val.component';
 import { BanVoteComponent } from './ban-vote/ban-vote.component';
+import { BlogComponent } from './blog/blog.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { BanVoteComponent } from './ban-vote/ban-vote.component';
     NewItemComponent,
     KillValComponent,
     BanVoteComponent,
+    BlogComponent,
   ],
   imports: [
     BrowserModule,
