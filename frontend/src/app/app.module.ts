@@ -21,6 +21,7 @@ import { NewItemComponent } from './new-item/new-item.component';
 import { KillValComponent } from './kill-val/kill-val.component';
 import { BanVoteComponent } from './ban-vote/ban-vote.component';
 import { BlogComponent } from './blog/blog.component';
+import { LogComponent } from './log/log.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { BlogComponent } from './blog/blog.component';
     KillValComponent,
     BanVoteComponent,
     BlogComponent,
+    LogComponent,
   ],
   imports: [
     BrowserModule,
