@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, Renderer2, ViewChildren, ElementRef, QueryList } from '@angular/core';
+import { Component, OnInit, Renderer2, ViewChildren, ElementRef, QueryList } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { trigger, transition, style, animate, } from '@angular/animations';
 import { ApiService } from '../services/api.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -20,23 +21,19 @@ import { ApiService } from '../services/api.service';
     ])
   ]
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements OnInit {
   unreadLogs: any[] = [];
-  showUnreadLogs: boolean = false
+  showUnreadLogs: boolean = true
   
   constructor(private _auth: AuthService, private _api: ApiService) { }
 
-
-  ngAfterViewInit(): void {
-    if (this._auth.isAuthenticated()) {
-      const blogUrl = "registry/unreadlogdata/";
-      this._api.fetchData(blogUrl).subscribe(
-        res => {
-          this.unreadLogs = res;
-          this.showUnreadLogs = true;
-        }
-      )
-    }
+  ngOnInit(): void {
+    const blogUrl = "registry/unreadlogdata/";
+    this._api.fetchData(blogUrl).subscribe(
+      res => {
+        this.unreadLogs = res;
+      }
+    )
   }
 
   closeUnreadLogs() {

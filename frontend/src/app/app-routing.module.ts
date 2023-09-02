@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { loginGuard } from './guards/login.guard';
-import { dashboardGuard } from './guards/dashboard.guard';
+import { authGuard } from './guards/auth.guard';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -18,12 +18,12 @@ import { NewItemComponent } from './new-item/new-item.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [loginGuard]},
-  {path: '', component: HomeComponent, children: [
+  {path: '', component: HomeComponent, canActivate: [authGuard], children: [
     {path: 'stats', component: StatsComponent},
     {path: 'logs', component: LogsComponent},
     {path: 'blogs', component: BlogsComponent}
   ]},
-  {path: 'dashboard', component: DashboardComponent, canActivate: [dashboardGuard], children: [
+  {path: 'dashboard', component: DashboardComponent, canActivate: [authGuard], children: [
     {path: 'quests', component: QuestsComponent},
     {path: 'newitem', component: NewItemComponent},
   ]},
