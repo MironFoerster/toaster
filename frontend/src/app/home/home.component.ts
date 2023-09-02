@@ -23,14 +23,13 @@ import { ApiService } from '../services/api.service';
 export class HomeComponent implements AfterViewInit {
   unreadLogs: any[] = [];
   showUnreadLogs: boolean = false
-  @ViewChildren('new_logs_container', { read: ElementRef }) newLogElements: QueryList<ElementRef>;
   
   constructor(private _auth: AuthService, private _api: ApiService) { }
 
 
   ngAfterViewInit(): void {
     if (this._auth.isAuthenticated()) {
-      const blogUrl = "registry/newlogdata/";
+      const blogUrl = "registry/unreadlogdata/";
       this._api.fetchData(blogUrl).subscribe(
         res => {
           this.unreadLogs = res;

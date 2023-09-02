@@ -2,18 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private _loginUrl = "http://127.0.0.1:8000/login/"
+  private _loginUrl = "auth/login/"
 
-  constructor(private _http: HttpClient, private _router: Router) { }
+  constructor(private _http: HttpClient, private _api: ApiService) { }
 
   loginUser(user: any): Observable<any> {
-    return this._http.post<any>(this._loginUrl, user)
+    return this._api.sendData(this._loginUrl, user)
   }
 
   logoutUser() {

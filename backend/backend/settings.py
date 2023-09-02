@@ -133,7 +133,8 @@ AUTH_USER_MODEL = "toast_auth.User"
 
 CORS_ALLOW_HEADERS = [
     'x-apirequest',
-    'authorization'
+    'authorization',
+    'content-type'
 ]
 
 CORS_ALLOWED_ORIGINS = [
