@@ -131,6 +131,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "toast_auth.User"
 
+CORS_ALLOW_HEADERS = [
+    'x-apirequest',
+    'authorization'
+]
+
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:4200',
 ]
