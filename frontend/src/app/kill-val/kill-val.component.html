@@ -1,7 +1,7 @@
 <div class="card action-card">
-    <p>Hat {{valData.killer}} dich mit {{valData.item}} getötet?</p>
+    <p>Hat {{valData.killername}} dich mit {{ valData.item.prep }} {{valData.item.name}} aus einer entfernung von {{ valData.distance }} {{ valData.verb.ge }}?</p>
     <div class="actn-btn-cont">
-        <button>Bitte? Nein!?😧</button>
-        <button type="button">Naja...schon iwie😒</button>
+        <button (click)="submitKillVal(false)">Bitte? Nein!?😧</button>
+        <button (click)="submitKillVal(true)">Naja...schon iwie😒</button>
     </div>
 </div>

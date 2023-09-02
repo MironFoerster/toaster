@@ -1,25 +1,26 @@
 from django.db import models
-from .models import Log
+from state.models import Item
 
 # Create your models here.
 
 class Log(models.Model):
-    is_info = models.BooleanField(default=False)
-    info_title = models.CharField(max_length=200, default="")
-    info_text = models.TextField(default="")
-
-    item = models.CharField(max_length=50, default="")
-    killer = models.CharField(max_length=50, default="")
-    victim = models.CharField(max_length=50, default="")
-    message = models.CharField(max_length=250, default="")
+    item = models.ForeignKey(Item, on_delete=models.PROTECT)
+    killername = models.CharField(max_length=50, default="")
+    victimname = models.CharField(max_length=50, default="")
     surrender = models.BooleanField(default=False)
     distance = models.IntegerField(default=0)
     date = models.DateField(auto_now=True)
 
+class Info(models.Model):
+    info_title = models.CharField(max_length=200, default="", null=True)
+    info_text = models.TextField(default="", null=True)
+    date = models.DateField(auto_now=True)
+
+
 class Blog(models.Model):
-    username = models.CharField(max_length=200)
+    username = models.CharField(max_length=200, default="")
     date = models.DateField()
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, default="Title")
     text = models.TextField()
     log = models.ForeignKey(Log, on_delete=models.SET_NULL, null=True)
 

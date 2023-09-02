@@ -1,4 +1,19 @@
 <p>logs works!</p>
-<div id="logs">
-    <app-log *ngFor="let log of logs" [logData]="log"></app-log>
+<div id="entry_container">
+    <div class="entry" *ngFor="let entry of entries">
+        <div *ngIf="'surrender' in entry; then logBlock else infoBlock"></div>
+        <ng-template #logBlock>
+            <div *ngIf="entry.surrender; then surrenderedBlock else killedBlock"></div>
+            <ng-template #surrenderedBlock>
+                <p>{{ entry.killer }} hat es nicht geschafft, {{ entry.victim }} mit {{ entry.prep }} {{ entry.item }} {{ entry.verb.zu }}</p>
+            </ng-template>
+            <ng-template #killedBlock>
+                <p>{{ entry.killer }} hat {{ entry.victim }} mit {{ entry.prep }} {{ entry.item }} {{ entry.verb.ge }}</p>
+            </ng-template>
+        </ng-template>
+        <ng-template #infoBlock>
+            <h3>{{ entry.title }}</h3>
+            <p>{{ entry.message }}</p>
+        </ng-template>
+    </div>
 </div>

@@ -12,4 +12,12 @@ export class ApiService {
   fetchData(apiUrl: string): Observable<any> {
     return this._http.get(apiUrl);
   }
+  
+  sendData(apiUrl: string, data: unknown): Observable<any> {
+    if (typeof data !== "object") {
+      data = {error: "unable to send data"};
+    }
+    return this._http.post(apiUrl, data);
+
+  }
 }

@@ -9,8 +9,7 @@ class CustomUserAdmin(UserAdmin):
             'Toast Data',  # group heading of your choice; set to None for a blank space instead of a header
             {
                 'fields': (
-                    'read_logs',
-                    'voted_bans',
+                    'prev_login',
                 ),
             },
         ),

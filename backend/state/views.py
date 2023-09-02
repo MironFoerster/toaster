@@ -44,7 +44,7 @@ def quests_data(request):
 @permission_classes([IsAuthenticated])
 def ban_data(request):
 
-    bans = PendingBan.objects.exclude(id__in=json.loads(request.user.voted_bans))
+    bans = PendingBan.objects.exclude(users_voted=request.user)
     serializer = PendingBanSerializer(bans, many=True)
     return Response(serializer.data)
 
@@ -52,7 +52,7 @@ def ban_data(request):
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def killval_data(request):
-    quests = Quest.objects.filter(victim=request.user).filter(await_valid=True)
+    quests = Quest.objects.filter(victim=request.user).filter(pending_valid=True)
     serializer = QuestSerializer(quests, many=True)
     return Response(serializer.data)
 
@@ -63,10 +63,10 @@ def killval_submit(request):
     quest = Quest.objects.get(id=request.data['quest_id'])
     if (request.data['valid']):
         new_log = Log.objects.create(item=quest.item,
-                                     killer=quest.killer,
-                                     victim=quest.victim,
-                                     message=quest.killer.username + " hat " + quest.victim.username + " mit " + quest.item.prep + quest.item.name + quest.verb.pastpart,
-                                     distance=10)  # TODO
+                                     killername=quest.killer.name,
+                                     victimname=quest.victim.name,
+                                     surrender=False,
+                                     distance=quest.distance)
         new_log.save()
         quest.delete()
         return Response("kill validated")
@@ -74,3 +74,35 @@ def killval_submit(request):
         quest.pending_valid = False
         quest.save()
         return Response("kill prevented")
+    
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def openedquest_submit(request):
+    quest = Quest.objects.filter(killer=request.user).get(id=request.data.quest_id)
+    quest.opened = True
+    quest.save()
+    return Response("quest opened")
+    
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def surrender_submit(request):
+    quest = Quest.objects.get(id=request.data['quest_id'])
+    new_log = Log.objects.create(item=quest.item,
+                                killername=quest.killer.username,
+                                victimname=quest.victim.username,
+                                surrender = True)
+    new_log.save()
+    quest.delete()
+    return Response("surrendered")
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def requestkillval_submit(request):
+    quest = Quest.objects.get(id=request.data['quest_id'])
+    quest.pending_valid = True
+    quest.distance = request.data['distance']
+    return Response("kill validated")

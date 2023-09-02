@@ -13,7 +13,7 @@ export class BlogsComponent implements OnInit {
   constructor(private _api: ApiService) { }
 
   ngOnInit(): void {
-    const blogUrl = "http://127.0.0.1:8000/registry/blogdata/";
+    const blogUrl = "registry/blogdata/";
     this._api.fetchData(blogUrl).subscribe(
       res => this.blogs = res
     )

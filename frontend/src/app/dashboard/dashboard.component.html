@@ -5,6 +5,6 @@
     <app-kill-val *ngFor="let val of vals;" [valData]="val"></app-kill-val>
     <app-ban-vote *ngFor="let ban of bans;" [banData]="ban"></app-ban-vote>
 </div>
-<router-outlet name="popup"></router-outlet>
+<router-outlet></router-outlet>
 <a [routerLink]="[{outlets: {popup: 'quests'}}]"><button>Quests</button></a>
 <a [routerLink]="[{outlets: {popup: 'newitem'}}]"><button>New Item</button></a>

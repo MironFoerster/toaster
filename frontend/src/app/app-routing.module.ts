@@ -24,8 +24,8 @@ const routes: Routes = [
     {path: 'blogs', component: BlogsComponent}
   ]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [dashboardGuard], children: [
-    {path: 'quests', component: QuestsComponent, outlet: "popup"},
-    {path: 'newitem', component: NewItemComponent, outlet: "popup"},
+    {path: 'quests', component: QuestsComponent},
+    {path: 'newitem', component: NewItemComponent},
   ]},
 ];
 

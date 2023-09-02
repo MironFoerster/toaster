@@ -1,1 +1,27 @@
 <p>quest works!</p>
+<ng-container *ngIf="questData.unopened; then unopenedBlock else openedBlock"></ng-container>
+<ng-template #unopenedBlock>
+    <div (click)="openCard()">
+        <p>Click to open!</p>
+
+    </div>
+</ng-template>
+<ng-template #openedBlock>
+    <div>
+        <p>{{ questData.verb.imp }} {{ questData.victim.username }} mit {{ questData.prep }} {{ questData.item.name }}</p>
+        <div *ngIf="enterDistance; then distanceInput else defaultActions"></div>
+        <ng-template #distanceInput>
+            <input type="number" placeholder="Entfernung von zuhause" [(ngModel)]="distance">
+            <button (click)="enterDistance=false;openModal(
+                'Du hast {{ questData.victim.username }} mit {{ questData.prep }} aus einer Entfernung von {{ distance }} km {{ questData.item.name }}',
+                requestKillVal)">OK</button>
+        </ng-template>
+        <ng-template #defaultActions>
+            <button (click)="openModal(
+                'Du willst wirklich aufgeben?',
+                surrender)">Aufgeben</button>
+            <button (click)="enterDistance=true">Erfüllt!</button>
+        </ng-template>
+    </div>
+</ng-template>
+<app-confirm-modal *ngIf="modalVisible" [message]="modalMessage" [action]="modalAction" [close]="closeModal"></app-confirm-modal>

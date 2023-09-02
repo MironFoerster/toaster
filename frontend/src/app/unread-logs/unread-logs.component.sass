@@ -1,0 +1,36 @@
+#unread-log-card-container
+    height: 0
+    transition: height 0.3 ease
+    &.active
+        height: 100px
+
+.reading-log-card
+    width: 90%
+    height: 70%
+    background-color: blue
+    border-radius: 20px
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: space-evenly    
+
+#unread-logs-btn
+    background: orange
+    border-radius: 50%
+    aspect-ratio: 1
+    position: relative
+
+    #unread-counter
+        position: absolute
+        top: 5px
+        left: 5px
+        width: 10px
+        aspect-ratio: 1
+        background: red
+        text: white
+        border-radius: 50%
+        transform: translate(-50%, -50%)
+        transition: width 0.3s ease
+    
+    &.unread
+        width: 50px

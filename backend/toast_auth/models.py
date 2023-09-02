@@ -4,5 +4,6 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     #username = models.CharField(max_length=50, unique=True)
     #password = models.CharField(max_length=50)
-    read_logs = models.JSONField(default=list)
-    voted_bans = models.JSONField(default=list)
+    #unread_logs = models.JSONField(default=list)
+    #unvoted_bans = models.JSONField(default=list)
+    prev_login = models.DateTimeField(null=True)

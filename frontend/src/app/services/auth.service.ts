@@ -16,10 +16,9 @@ export class AuthService {
     return this._http.post<any>(this._loginUrl, user)
   }
 
-  logoutUser() { // TODO add cleanup
-    localStorage.removeItem('token');
-    this._router.navigate(['login']);
-
+  logoutUser() {
+    localStorage.clear();
+    window.location.reload();
   }
 
   isAuthenticated() {

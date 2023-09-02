@@ -12,8 +12,8 @@ export class DashboardComponent implements OnInit {
   constructor(private _auth: AuthService, private _api: ApiService) { }
 
   ngOnInit(): void {
-    const killvalUrl = "http://127.0.0.1:8000/state/killvaldata/";
-    const banUrl = "http://127.0.0.1:8000/state/bandata/";
+    const killvalUrl = "state/killvaldata/";
+    const banUrl = "state/bandata/";
     this._api.fetchData(killvalUrl).subscribe(
       res => this.vals = res
     )

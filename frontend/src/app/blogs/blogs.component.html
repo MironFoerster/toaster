@@ -1,4 +1,10 @@
 <p>blogs works!</p>
 <div id="blogs">
-    <app-blog *ngFor="let blog of blogs" [blogData]="blog"></app-blog>
+    <div *ngFor="let blog of blogs">
+        <h3>{{ blog.title }}</h3>
+        <p>{{ blog.date }}</p>
+        <p>{{ blog.log.message }}</p>
+        <p>{{ blog.user }}</p>
+        <p>{{ blog.text }}</p>
+    </div>
 </div>

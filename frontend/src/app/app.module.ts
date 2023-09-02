@@ -4,9 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { AuthService } from './services/auth.service'
-import { TokenInterceptorService } from './token-interceptor.service';
+import { ApiService } from './services/api.service';
+
+import { TokenInterceptor } from './token.interceptor';
+import { UrlInterceptor } from './url.interceptor';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -16,12 +20,12 @@ import { LogsComponent } from './logs/logs.component';
 import { BlogsComponent } from './blogs/blogs.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { QuestsComponent } from './quests/quests.component';
-import { QuestComponent } from './quest/quest.component';
 import { NewItemComponent } from './new-item/new-item.component';
 import { KillValComponent } from './kill-val/kill-val.component';
 import { BanVoteComponent } from './ban-vote/ban-vote.component';
-import { BlogComponent } from './blog/blog.component';
-import { LogComponent } from './log/log.component';
+import { QuestComponent } from './quest/quest.component';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { UnreadLogsComponent } from './unread-logs/unread-logs.component';
 
 @NgModule({
   declarations: [
@@ -33,25 +37,23 @@ import { LogComponent } from './log/log.component';
     BlogsComponent,
     DashboardComponent,
     QuestsComponent,
-    QuestComponent,
     NewItemComponent,
     KillValComponent,
     BanVoteComponent,
-    BlogComponent,
-    LogComponent,
+    QuestComponent,
+    ConfirmModalComponent,
+    UnreadLogsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
   ],
-  providers: [AuthService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService,
-      multi: true
-    }  
+  providers: [AuthService, ApiService,
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    //{provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })

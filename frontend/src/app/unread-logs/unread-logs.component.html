@@ -1,0 +1,17 @@
+<div class="overlay">
+    <div id="reading-log-card-container" [class.active]="['reading', 'read'].includes(readingState)">
+        <div *ngIf="readingLogSwitch" class="reading-log-card">
+            ...hat {{ readingLog.killer }} {{ readingLog.victim }} mit {{ readingLog.prep }} {{ readingLog.item }} {{ readingLog.zzz }}
+        </div>
+    </div>
+
+    <button id="unread-logs-btn" (click)="handleButtonClick($event)"    [class.unread]="readingState === 'unread'"
+                                                                        [class.reading]="readingState === 'reading'"
+                                                                        [class.read]="readingState === 'read'">
+        <div id="unread-counter">
+            {{ unreadLogs.length }}
+        </div>
+        button
+    </button>
+
+</div>
