@@ -23,22 +23,25 @@ import { NavigationEnd, Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   unreadLogs: any[] = [];
-  showUnreadLogs: boolean = true
+  showUnreadLogs: boolean = localStorage.getItem("read_logs")? false : true
   
   constructor(private _auth: AuthService, private _api: ApiService) { }
 
   ngOnInit(): void {
-    const blogUrl = "registry/unreadlogdata/";
-    this._api.fetchData(blogUrl).subscribe(
-      res => {
-        this.unreadLogs = res;
-      }
-    )
+    if (this.showUnreadLogs) {
+      const unreadlogUrl = "registry/unreadlogdata/";
+      this._api.fetchData(unreadlogUrl).subscribe(
+        res => {
+          this.unreadLogs = res;
+        }
+      )
+    }
   }
 
   closeUnreadLogs() {
     this.unreadLogs = [];
     this.showUnreadLogs = false
+    localStorage.setItem("read_logs", "true")
   }
 
   userIsAuthenticated() {

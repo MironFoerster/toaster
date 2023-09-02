@@ -9,7 +9,9 @@
     <a routerLink="login"><button type="button">Login</button></a>
 </ng-template>
 
-<app-unread-logs *ngIf="showUnreadLogs" [unreadLogs]="unreadLogs" [close]="closeUnreadLogs"></app-unread-logs>
+<div>{{showUnreadLogs}}</div>
+
+<app-unread-logs (closeEvent)="closeUnreadLogs()" *ngIf="showUnreadLogs" [unreadLogs]="unreadLogs"></app-unread-logs>
 
 
 <router-outlet></router-outlet>

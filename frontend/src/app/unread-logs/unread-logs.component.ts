@@ -1,24 +1,30 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-unread-logs',
   templateUrl: './unread-logs.component.html',
   styleUrls: ['./unread-logs.component.sass']
 })
-export class UnreadLogsComponent {
+export class UnreadLogsComponent implements OnInit {
   @Input() unreadLogs: any[];
   @Input() close: Function;
+  @Output() closeEvent = new EventEmitter<void>()
   readingLog: any;
   readingLogSwitch: boolean = false;
-  readingState: string = "unread";
+  readingState: string
 
-  readNextLog() {
- 
+  ngOnInit(): void {
+    this.readingState = this.unreadLogs.length? "unread" : "nounread";
 
   }
 
+
   handleButtonClick(event: any) {
+    console.log("clickoverlay", this.readingState)
     switch (this.readingState) {
+      case 'nounread':
+        this.closeEvent.emit()
+        break;
       case 'unread':
         this.readingState = "reading";
         this.readingLog = this.unreadLogs.pop()
@@ -34,7 +40,7 @@ export class UnreadLogsComponent {
         
         break;
       case 'read':
-        this.close()
+        this.closeEvent.emit()
         break;
     }
   }

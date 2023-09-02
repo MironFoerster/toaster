@@ -1,17 +1,34 @@
-<div class="overlay">
-    <div id="reading-log-card-container" [class.active]="['reading', 'read'].includes(readingState)">
-        <div *ngIf="readingLogSwitch" class="reading-log-card">
-            ...hat {{ readingLog.killer }} {{ readingLog.victim }} mit {{ readingLog.prep }} {{ readingLog.item }} {{ readingLog.zzz }}
-        </div>
-    </div>
+<div class="overlay" (click)="handleButtonClick($event)">
+    <ng-container *ngIf="readingState === 'nounread'; then nounreadBlock else readingBlock"></ng-container>
+        <ng-template #nounreadBlock>
+            <div class="unread-logs-message center-text">Nichts passiert, seit du das letzte mal dawarst...</div>
+            <div class="tap-instructor center-text">
+                Zum Schließen Tippen
+            </div>
+        </ng-template>
+        <ng-template #readingBlock>
+            <div class="unread-logs-message">Seit du das letzte mal dawarst...</div>
 
-    <button id="unread-logs-btn" (click)="handleButtonClick($event)"    [class.unread]="readingState === 'unread'"
+            <div id="reading-log-card-container" [class.active]="['reading', 'read', 'nounread'].includes(readingState)">
+                <div *ngIf="readingLogSwitch" class="reading-log-card">
+                    ...hat {{ readingLog.killer }} {{ readingLog.victim }} mit {{ readingLog.prep }} {{ readingLog.item }} {{ readingLog.zzz }}
+                </div>
+            </div>
+
+            <div id="unread-logs-btn" [class.unread]="readingState === 'unread'"
                                                                         [class.reading]="readingState === 'reading'"
                                                                         [class.read]="readingState === 'read'">
-        <div id="unread-counter">
-            {{ unreadLogs.length }}
-        </div>
-        button
-    </button>
+                <div id="unread-counter">
+                    {{ unreadLogs.length }}
+                </div>
+                button
+            </div>
+
+            <div class="tap-instructor center-text">
+                Zum Schließen Tippen
+            </div>
+        </ng-template>
+
+    
 
 </div>
