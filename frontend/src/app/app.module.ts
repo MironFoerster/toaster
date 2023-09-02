@@ -53,7 +53,7 @@ import { UnreadLogsComponent } from './unread-logs/unread-logs.component';
   ],
   providers: [AuthService, ApiService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
-    //{provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })

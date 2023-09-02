@@ -9,13 +9,18 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class UrlInterceptor implements HttpInterceptor {
-
+  readonly apiBaseUrl = "http://127.0.0.1:8000/";
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const baseUrl = "http://127.0.0.1:8000/";
-    const apiReq = request.clone({ url: `${baseUrl}${request.url}` });
+    if (request.headers.get('X-ApiRequest') === 'true') {
+      console.log("with header")
+      const apiRequest = request.clone({ url: `${this.apiBaseUrl}${request.url}` });
+      return next.handle(apiRequest);
+    } else {
+      console.log("no header")
 
-    return next.handle(apiReq);
+      return next.handle(request);
+    }
   }
 }
