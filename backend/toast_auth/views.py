@@ -16,6 +16,7 @@ def login(request):
     
     user.prev_login = user.last_login
     user.last_login = timezone.now()
+    user.save()
     
     token, created = Token.objects.get_or_create(user=user)
     #serializer = UserSerializer(instance=user)
