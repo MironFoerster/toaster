@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from toast_auth.models import User
 
 class Item(models.Model):
@@ -6,6 +7,11 @@ class Item(models.Model):
     prep = models.CharField(max_length=50, default="")
     frequency = models.IntegerField(default=1)
     banned = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f"{self.name} ({self.frequency})"
+
+
 
 
 class KillVerb(models.Model):
@@ -13,6 +19,9 @@ class KillVerb(models.Model):
     ge = models.CharField(max_length=200, default="getötet")
     imp = models.CharField(max_length=200, default="töte")
     frequency = models.IntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.imp} ({self.frequency})"
 
 
 class Quest(models.Model):
@@ -23,6 +32,13 @@ class Quest(models.Model):
     distance = models.IntegerField(null=True)
     verb = models.ForeignKey(KillVerb, on_delete=models.SET_NULL, null=True)
 
+    def __str__(self):
+        if settings.DEBUG:
+            return f"{self.killer.username} {self.verb.imp} {self.victim.username} ({self.item.name})"
+        else:
+            return f"Quest ({self.id})"
+
+
 
 class PendingBan(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
@@ -30,3 +46,6 @@ class PendingBan(models.Model):
     pro = models.IntegerField(default=0)
     con = models.IntegerField(default=0)
     users_voted = models.ManyToManyField(User)
+
+    def __str__(self):
+        return f"{self.item} ({self.pro}, {self.con})"
