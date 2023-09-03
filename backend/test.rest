@@ -23,7 +23,7 @@ Authorization: Token a8b21acb6dfa637b300e97ffd365a8d6b83f02dc
 
 GET http://127.0.0.1:8000/state/questdata/
 Content-Type: application/json
-Authorization: Token a8b21acb6dfa637b300e97ffd365a8d6b83f02dc
+Authorization: Token 931ad6e8c143f008c80d0c2679649a06f6b9cb8d
 
 {}
 
@@ -40,5 +40,13 @@ Authorization: Token a8b21acb6dfa637b300e97ffd365a8d6b83f02dc
 GET http://127.0.0.1:8000/state/killvaldata/
 Content-Type: application/json
 Authorization: Token a8b21acb6dfa637b300e97ffd365a8d6b83f02dc
+
+{}
+
+###
+
+GET http://127.0.0.1:8000/registry/unreadlogdata/
+Content-Type: application/json
+Authorization: Token 105a77f5a5ee75c58a1cdcf679604606b158202a
 
 {}
