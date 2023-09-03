@@ -17,7 +17,7 @@ def new_item(request):
     Item.objects.create(name = request.data['name'], prep = request.data['prep'])
     return Response("added Item")
 
-from .models import Quest, Item, PendingBan
+from .models import Quest, Item, PendingBan, KillVerb
 from registry.models import Log
 import random
 
@@ -29,11 +29,12 @@ def quests_data(request):
 
     while quests.count() < 3:
         rand_item = random.choices(Item.objects.all(), [1/item["frequency"] for item in Item.objects.values("frequency")], k=1)[0]
+        rand_verb = random.choices(KillVerb.objects.all(), [1/verb["frequency"] for verb in KillVerb.objects.values("frequency")], k=1)[0]
         rand_item.frequency += 1
         rand_item.save()
         already_victim_names = [quest.victim.username for quest in quests]
         victim_user = random.choice(User.objects.exclude(username__in=already_victim_names).exclude(username=request.user.username))
-        Quest.objects.create(item=rand_item, killer=request.user, victim=victim_user)
+        Quest.objects.create(item=rand_item, killer=request.user, victim=victim_user, verb=rand_verb)
         quests = Quest.objects.filter(killer=request.user)
     
     serializer = QuestSerializer(quests, many=True)
