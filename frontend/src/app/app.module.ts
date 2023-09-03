@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { AuthService } from './services/auth.service'
 import { ApiService } from './services/api.service';
+import { ModalService } from './services/modal.service';
 
 import { TokenInterceptor } from './token.interceptor';
 import { UrlInterceptor } from './url.interceptor';
@@ -50,8 +51,9 @@ import { UnreadLogsComponent } from './unread-logs/unread-logs.component';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
+    
   ],
-  providers: [AuthService, ApiService,
+  providers: [AuthService, ApiService, ModalService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true},
   ],

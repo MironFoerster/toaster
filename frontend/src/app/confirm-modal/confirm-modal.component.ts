@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, ComponentRef, EventEmitter, Input, Output } from '@angular/core';
+import { ModalService } from '../services/modal.service';
 
 @Component({
   selector: 'app-confirm-modal',
@@ -7,6 +8,19 @@ import { Component, Input } from '@angular/core';
 })
 export class ConfirmModalComponent {
   @Input() message: string;
-  @Input() action: Function;
-  @Input() close: Function;
+  @Input() selfRef: ComponentRef<any>;
+  @Output() confirmEvent = new EventEmitter();
+  @Output() cancelEvent = new EventEmitter();
+
+  constructor(private _modal: ModalService) {}
+
+  confirm() {
+    this.selfRef.destroy()
+    this.confirmEvent.emit()
+  }
+
+  cancel() {
+    this.selfRef.destroy()
+    this.cancelEvent.emit()
+  }
 }
