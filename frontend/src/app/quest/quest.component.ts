@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewContainerRef } from '@angular/core';
 import { ApiService } from '../services/api.service';
+import { ModalService } from '../services/modal.service';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-quest',
@@ -8,13 +10,14 @@ import { ApiService } from '../services/api.service';
 })
 export class QuestComponent {
   @Input() questData: any;
+
   distance: number;
   modalMessage: string;
   modalAction: Function;
-  modalVisible: boolean;
+  showModal: boolean;
   enterDistance: boolean = false;
 
-  constructor(private _api: ApiService) {}
+  constructor(private _api: ApiService, private _modal: ModalService, private _viewContainer: ViewContainerRef) {}
 
   openCard() {
     this.questData.unopened = false
@@ -40,11 +43,8 @@ export class QuestComponent {
   }
 
   openModal(message: string, action: Function) {
-    this.modalMessage = message
-    this.modalAction = action
-    this.modalVisible = true
-  }
-  closeModal() {
-    this.modalVisible = true
+    this._modal.open(message, this._viewContainer).pipe(first()).subscribe({
+      next() {action()}, error() {console.log("error")}, complete() {console.log("complete")}
+    })
   }
 }
