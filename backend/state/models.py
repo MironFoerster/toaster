@@ -4,7 +4,7 @@ from toast_auth.models import User
 
 class Item(models.Model):
     name = models.CharField(max_length=200)
-    prep = models.CharField(max_length=50, default="")
+    prep = models.CharField(max_length=50, default="", null=True)
     frequency = models.IntegerField(default=1)
     banned = models.BooleanField(default=False)
     
@@ -28,9 +28,9 @@ class Quest(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     killer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="killer_quests")
     victim = models.ForeignKey(User, on_delete=models.CASCADE, related_name="victim_quests")
+    verb = models.ForeignKey(KillVerb, on_delete=models.SET_NULL, null=True)
     pending_valid = models.BooleanField(default=False)
     distance = models.IntegerField(null=True)
-    verb = models.ForeignKey(KillVerb, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         if settings.DEBUG:
