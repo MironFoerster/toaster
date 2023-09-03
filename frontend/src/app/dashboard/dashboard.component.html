@@ -6,5 +6,5 @@
     <app-ban-vote *ngFor="let ban of bans;" [banData]="ban"></app-ban-vote>
 </div>
 <router-outlet></router-outlet>
-<a [routerLink]="[{outlets: {popup: 'quests'}}]"><button>Quests</button></a>
-<a [routerLink]="[{outlets: {popup: 'newitem'}}]"><button>New Item</button></a>
+<a routerLink="quests"><button>Quests</button></a>
+<a routerLink="newitem"><button>New Item</button></a>
