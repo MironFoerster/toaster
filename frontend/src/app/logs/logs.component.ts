@@ -21,7 +21,7 @@ export class LogsComponent implements OnInit {
     const infoObserve: Observable<any> = this._api.fetchData(infoUrl)
 
     combineLatest([logObserve, infoObserve]).subscribe(([logs, infos]) => {
-      this.entries = [...logs, ...infos].sort((a,b)=>{return a.date - b.date;})
+      this.entries = [...logs, ...infos].sort((a,b)=> b.date < a.date? 1 : -1)
     });
   }
   

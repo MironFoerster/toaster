@@ -1,14 +1,13 @@
-<p>logs works!</p>
 <div id="entry_container">
     <div class="entry" *ngFor="let entry of entries">
-        <div *ngIf="'surrender' in entry; then logBlock else infoBlock"></div>
+        <div *ngIf="entry.hasOwnProperty('surrender'); then logBlock else infoBlock"></div>
         <ng-template #logBlock>
             <div *ngIf="entry.surrender; then surrenderedBlock else killedBlock"></div>
             <ng-template #surrenderedBlock>
-                <p>{{ entry.killer }} hat es nicht geschafft, {{ entry.victim }} mit {{ entry.prep }} {{ entry.item }} {{ entry.verb.zu }}</p>
+                <p>{{ entry.killername }} hat es nicht geschafft, {{ entry.victimname }} mit {{ entry.item.prep }} {{ entry.item.name }} {{ entry.verb.zu }}</p>
             </ng-template>
             <ng-template #killedBlock>
-                <p>{{ entry.killer }} hat {{ entry.victim }} mit {{ entry.prep }} {{ entry.item }} {{ entry.verb.ge }}</p>
+                <p>{{ entry.killername }} hat {{ entry.victimname }} mit {{ entry.item.prep }} {{ entry.item.name }} {{ entry.verb.ge }}</p>
             </ng-template>
         </ng-template>
         <ng-template #infoBlock>
