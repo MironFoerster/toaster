@@ -1,4 +1,4 @@
-import { Component, ComponentRef, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ComponentRef, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { ModalService } from '../services/modal.service';
 
 @Component({
@@ -11,6 +11,7 @@ export class ConfirmModalComponent {
   @Input() selfRef: ComponentRef<any>;
   @Output() confirmEvent = new EventEmitter();
   @Output() cancelEvent = new EventEmitter();
+  @HostBinding('class.overlay') overlayClass: boolean = true;
 
   constructor(private _modal: ModalService) {}
 
