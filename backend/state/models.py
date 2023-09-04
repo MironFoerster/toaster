@@ -29,7 +29,7 @@ class Quest(models.Model):
     killer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="killer_quests")
     victim = models.ForeignKey(User, on_delete=models.CASCADE, related_name="victim_quests")
     verb = models.ForeignKey(KillVerb, on_delete=models.SET_NULL, null=True)
-    pending_valid = models.BooleanField(default=False)
+    state = models.CharField(default="unopened", max_length=50)
     distance = models.IntegerField(null=True)
 
     def __str__(self):

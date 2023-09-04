@@ -1,25 +1,34 @@
-<ng-container *ngIf="questData.unopened; then unopenedBlock else openedBlock"></ng-container>
-<ng-template #unopenedBlock>
-    <div (click)="openCard()">
-        <p>Click to open!</p>
+<ng-container [ngSwitch]="questData.state">
+    <ng-container *ngSwitchCase="'unopened'">
+        <div class="quest-unopened-card" (click)="openCard()">
+            <p>Click to open!</p>
+        </div>
+    </ng-container>
 
-    </div>
-</ng-template>
-<ng-template #openedBlock>
-    <div>
-        <p>!{{ questData.verb.imp }} {{ questData.victim.username }} mit {{ questData.prep }} {{ questData.item.name }}</p>
-        <div *ngIf="enterDistance; then distanceInput else defaultActions"></div>
-        <ng-template #distanceInput>
-            <input type="number" placeholder="Entfernung von zuhause" [(ngModel)]="distance">
-            <button (click)="enterDistance=false;openModal(
-                'Du hast {{ questData.victim.username }} aus einer Entfernung von {{ distance }} km mit {{ questData.prep }} {{ questData.item.name }} {{ questData.verb.ge }}',
-                requestKillVal.bind(this))">OK</button>
-        </ng-template>
-        <ng-template #defaultActions>
-            <button (click)="openModal(
-                'Du willst wirklich aufgeben?',
-                surrender.bind(this))">Aufgeben</button>
-            <button (click)="enterDistance=true">Erfüllt!</button>
-        </ng-template>
-    </div>
-</ng-template>
+    <ng-container *ngSwitchCase="'active'">
+        <div class="quest-opened-card">
+            <div>{{ questData.verb.imp }} {{ questData.victim.username }} mit {{ questData.item.prep }} {{ questData.item.name }}</div>
+            <div *ngIf="enterDistance; then distanceInput else defaultActions"></div>
+            <ng-template #distanceInput>
+                <div class="quest-btn-cont">
+                    <input type="number" placeholder="Entfernung von zuhause" [(ngModel)]="distance">
+                    <button (click)="enterDistance=false; openModal(getSuccessConfirmMessage(), requestKillVal.bind(this))">OK</button>
+                </div>
+            </ng-template>
+            <ng-template #defaultActions>
+                <div class="quest-btn-cont">
+                    <button (click)="openModal(
+                        'Du willst wirklich aufgeben?',
+                        surrender.bind(this))">Aufgeben</button>
+                    <button (click)="enterDistance=true">Erfüllt!</button>
+                </div>
+            </ng-template>
+        </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'validating'">
+        <div class="quest-validating-card">
+            <p>validating</p>
+        </div>
+    </ng-container>
+</ng-container>

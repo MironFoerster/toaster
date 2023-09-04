@@ -1,15 +1,46 @@
-import { Component, Input, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, OnInit, Output, ViewContainerRef } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { ModalService } from '../services/modal.service';
 import { first } from 'rxjs';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  sequence,
+  // ...
+} from '@angular/animations';
 
 @Component({
   selector: 'app-quest',
   templateUrl: './quest.component.html',
-  styleUrls: ['./quest.component.sass']
+  styleUrls: ['./quest.component.sass'],
+  animations: [
+    trigger('questEnterLeave', [
+      transition(':enter', [
+        style({opacity: 0, height: 0}),
+        sequence([
+          animate('0.5s 0.2s ease', style({height: "33.33%"})),
+          animate('0.2s ease', style({opacity: 1})),
+        ])
+      ]),
+      transition(':leave', [
+        style({opacity: 1, height: "33.33%"}),
+        sequence([
+          animate('0.2s ease', style({opacity: 0})),
+          animate('0.5s ease', style({height: "0%"})),
+        ])
+      ])
+    ])
+  ]
 })
 export class QuestComponent {
   @Input() questData: any;
+  @Output() questRemoved = new EventEmitter();
+  @HostBinding('@questEnterLeave') get questEnterLeave() {
+    return "true"
+  }
 
   distance: number;
   modalMessage: string;
@@ -22,24 +53,28 @@ export class QuestComponent {
   openCard() {
     this.questData.unopened = false
 
-    const openedQuestUrl: string = "state/openedquestsubmit/";
-    this._api.sendData(openedQuestUrl, {quest_id: this.questData.id}).subscribe(
-      res => console.log(res)
+    const questOpenedUrl: string = "state/setquestopened/";
+    this._api.sendData(questOpenedUrl, {quest_id: this.questData.id}).subscribe(
+      res => this.questData.state = "active"
     )
   }
 
   surrender() {
     const surrenderQuestUrl: string = "state/surrenderquest/";
     this._api.sendData(surrenderQuestUrl, {quest_id: this.questData.id}).subscribe(
-      res => console.log(res)
+      res => this.questRemoved.emit()
     )
   }
 
   requestKillVal() {
     const requestValUrl: string = "state/requestkillval/";
     this._api.sendData(requestValUrl, {quest_id: this.questData.id, distance: this.distance}).subscribe(
-      res => console.log(res)
+      res => this.questData.state = "validating"
     )
+  }
+
+  getSuccessConfirmMessage(): string {
+    return `Du hast ${this.questData.victim.username} aus einer Entfernung von ${ this.distance } km mit ${ this.questData.item.prep } ${ this.questData.item.name } ${ this.questData.verb.ge }?`
   }
 
   openModal(message: string, action: Function) {

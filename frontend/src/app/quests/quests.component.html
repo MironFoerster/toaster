@@ -1,7 +1,7 @@
 <div class="overlay">
 
     <div class="quests-card">
-        <app-quest *ngFor="let quest of quests" [questData]="quest"></app-quest>
+        <app-quest *ngFor="let quest of quests;trackBy: getQuestId" [questData]="quest" (questRemoved)="loadQuests()"></app-quest>
     </div>
 
     <a routerLink=".."><button type="button">close</button></a>

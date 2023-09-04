@@ -11,10 +11,18 @@ export class QuestsComponent implements OnInit {
 
   constructor(private _api: ApiService) {}
 
-  ngOnInit() {
+  loadQuests() {
     const questUrl: string = "state/questdata/";
     this._api.fetchData(questUrl).subscribe(
       res => this.quests = res
     )
+  }
+
+  getQuestId(index: number, item: any): number {
+    return item.id
+  }
+
+  ngOnInit() {
+    this.loadQuests()
   }
 }
