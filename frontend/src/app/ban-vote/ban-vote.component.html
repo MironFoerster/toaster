@@ -4,7 +4,7 @@
     <p>Pro: {{banData.pro}}</p>
     <p>Con: {{banData.con}}</p>
     <div class="actn-btn-cont">
-        <button>Nee kann bleiben</button>
-        <button type="button">Ja bannen!</button>
+        <button (click)="voteBan(false)">Nee kann bleiben</button>
+        <button (click)="voteBan(true)">Ja bannen!</button>
     </div>
 </div>

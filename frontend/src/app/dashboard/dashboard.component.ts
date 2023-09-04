@@ -21,6 +21,23 @@ export class DashboardComponent implements OnInit {
       res => this.bans = res
     )
   }
+
+  getQuestId(index: number, item: any): number {
+    return item.id
+  }
+
+  closeVal(index: number) {
+    this.vals.splice(index, 1)
+  }
+  
+  getBanId(index: number, item: any): number {
+    return item.id
+  }
+
+  closeBan(index: number) {
+    this.vals.splice(index, 1)
+  }
+
   logoutUser() {
     this._auth.logoutUser();
   }

@@ -2,8 +2,8 @@
 <button (click)="logoutUser()">Logout</button>
 <a routerLink=''><button>Home</button></a>
 <div class="action-board">
-    <app-kill-val *ngFor="let val of vals;" [valData]="val"></app-kill-val>
-    <app-ban-vote *ngFor="let ban of bans;" [banData]="ban"></app-ban-vote>
+    <app-kill-val *ngFor="let val of vals; index as i; trackBy: getQuestId" [valData]="val" (requestClose)="closeVal(i)"></app-kill-val>
+    <app-ban-vote *ngFor="let ban of bans; index as i; trackBy: getBanId" [banData]="ban" (requestClose)="closeBan(i)"></app-ban-vote>
 </div>
 <router-outlet></router-outlet>
 <a routerLink="quests"><button>Quests</button></a>

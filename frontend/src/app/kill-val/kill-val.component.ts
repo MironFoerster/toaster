@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -8,13 +8,14 @@ import { ApiService } from '../services/api.service';
 })
 export class KillValComponent {
   @Input() valData: any;
+  @Output() requestClose = new EventEmitter();
 
   constructor(private _api: ApiService) {}
 
-  submitKillVal(valid: boolean) {
-    const submitValUrl: string = "state/submitkillval/";
-    this._api.sendData(submitValUrl, {quest_id: this.valData.id}).subscribe(
-      res => console.log(res)
+  validateKill(valid: boolean) {
+    const submitValUrl: string = "state/validatekill/";
+    this._api.sendData(submitValUrl, {quest_id: this.valData.id, valid: valid}).subscribe(
+      res => this.requestClose.emit()
     )
   }
 }
