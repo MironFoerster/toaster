@@ -111,7 +111,7 @@ def vote_ban(request):
 
         if ban.pro >= majority:
             ban.item.banned = True
-            Quest.objects.filter(item=ban.item).update(state='banned')
+            Quest.objects.filter(item=ban.item).update(ban_state='banned')
 
             new_info = Info.objects.create(type="ban",
                                            title=f"{ban.item.name} gebannt",

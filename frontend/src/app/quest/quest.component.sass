@@ -16,6 +16,35 @@
     justify-content: space-evenly
     align-items: center
     flex-direction: column
+    position: relative
+
+.ban-state-info
+    position: absolute
+    top: 10px
+    border: solid
+    right: 10px
+    width: 20px
+    height: 20px
+    text-align: center
+    border-radius: 50%
+
+    &::before
+        background: blue
+        border-radius: 10px 0 10px 10px
+        content: var(--tooltipcontent)
+        width: 50vw
+        position: absolute
+        right: 20px
+        top: 20px
+        opacity: 0
+        visibility: hidden
+        transition: opacity 0.2s ease, visibility 0s ease 0.2s
+
+    &:hover::before
+        opacity: 1
+        visibility: visible
+        transition: opacity 0.2s ease
+
 
 .quest-btn-cont
     display: flex

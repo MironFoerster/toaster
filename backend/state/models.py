@@ -30,6 +30,7 @@ class Quest(models.Model):
     victim = models.ForeignKey(User, on_delete=models.CASCADE, related_name="victim_quests")
     verb = models.ForeignKey(KillVerb, on_delete=models.SET_NULL, null=True)
     state = models.CharField(default="unopened", max_length=50)
+    ban_state = models.CharField(default="", max_length=50)
     distance = models.IntegerField(null=True)
 
     def __str__(self):

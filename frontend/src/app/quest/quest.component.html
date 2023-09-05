@@ -8,12 +8,6 @@
     <ng-container *ngSwitchCase="'active'">
         <ng-container *ngTemplateOutlet="openQuestCard"></ng-container>
     </ng-container>
-    <ng-container *ngSwitchCase="'banning'">
-        <ng-container *ngTemplateOutlet="openQuestCard"></ng-container>
-    </ng-container>
-    <ng-container *ngSwitchCase="'banned'">
-        <ng-container *ngTemplateOutlet="openQuestCard"></ng-container>
-    </ng-container>
 
     <ng-container *ngSwitchCase="'validating'">
         <div class="quest-validating-card">
@@ -24,6 +18,22 @@
 
 <ng-template #openQuestCard>
     <div class="quest-opened-card">
+
+        <ng-container [ngSwitch]="questData.ban_state">
+
+            <ng-container *ngSwitchCase="'banning'">
+                <div class="ban-state-info" [style.--tooltipcontent]="stringWrap('Über '+questData.item.name+' wird gerade abgestimmt.')">!</div>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'banned'">
+                <div class="ban-state-info" [style.--tooltipcontent]="stringWrap(questData.item.name+' wurde gebannt. Du kannst ohne Konsequenzen aufgeben!')">!</div>
+            </ng-container>
+
+            <ng-container *ngSwitchDefault></ng-container>
+
+        </ng-container>
+
+
         <div>{{ questData.verb.imp }} {{ questData.victim.username }} mit {{ questData.item.prep }} {{ questData.item.name }}</div>
         <div *ngIf="enterDistance; then distanceInput else defaultActions"></div>
         <ng-template #distanceInput>
@@ -37,8 +47,7 @@
                 <button (click)="openModal(
                     'Du willst wirklich aufgeben?',
                     surrender.bind(this))">Aufgeben</button>
-                <button (click)="enterDistance=true">Erfüllt!</button>
-                <button (click)="openModal('Willst du {{questData.item.name}} wirklich bannen?', initBan.bind(this))">Ban Item</button>
+                        <button *ngIf="!['banned', 'banning'].includes(questData.ban_state)" (click)="actionState='ban_note'">{{ questData.item.name }} bannen</button>
             </div>
         </ng-template>
     </div>
