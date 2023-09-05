@@ -30,7 +30,7 @@ def quests_data(request):
     quests = Quest.objects.all().filter(killer=request.user)
 
     while quests.count() < 3:
-        unbanned_items = Item.objects.exclude(banned=True)
+        unbanned_items = Item.objects.exclude(ban_state='banned')
         rand_item = random.choices(unbanned_items, [1/item["frequency"] for item in unbanned_items.values("frequency")], k=1)[0]
         rand_verb = random.choices(KillVerb.objects.all(), [1/verb["frequency"] for verb in KillVerb.objects.values("frequency")], k=1)[0]
         rand_item.frequency += 1
@@ -84,14 +84,15 @@ def validate_kill(request):
 @permission_classes([IsAuthenticated])
 def initiate_ban(request):
     ban_item = Item.objects.get(id=request.data["item_id"])
-    if PendingBan.objects.exists(item=ban_item) or ban_item.banned:
+    if PendingBan.objects.filter(item=ban_item).exists() or ban_item.ban_state == 'banned':
         return Response("already banning or banned")
     else:
         ban = PendingBan.objects.create(item=ban_item,
                                         note=request.data["note"])
         ban.users_voted.add(request.user)
 
-        Quest.objects.filter(item=ban_item).update(ban_state='banning')
+        ban_item.ban_state = 'banning'
+        ban_item.save()
 
         return Response("initiated ban")
 
@@ -113,10 +114,8 @@ def vote_ban(request):
         majority = math.ceil(User.objects.all().count() / 2)
 
         if ban.pro >= majority:
-            ban.item.banned = True
+            ban.item.ban_state = 'banned'
             ban.item.save()
-
-            Quest.objects.filter(item=ban.item).update(ban_state='banned')
 
             new_info = Info.objects.create(type="ban",
                                            title=f"{ban.item.name} gebannt",
@@ -124,7 +123,8 @@ def vote_ban(request):
             new_info.save()
             ban.delete()
         elif ban.con > majority:
-            Quest.objects.filter(item=ban.item).update(state='active')
+            ban.item.ban_state = ''
+            ban.item.save()
 
             new_info = Info.objects.create(type="ban",
                                            title=f"{ban.item.name} nicht gebannt",
@@ -152,7 +152,7 @@ def set_quest_opened(request):
 def surrender_quest(request):
     quest = Quest.objects.get(id=request.data['quest_id'])
 
-    if not quest.item.banned:
+    if not quest.item.ban_state == 'banned':
         new_log = Log.objects.create(item=quest.item,
                                     killername=quest.killer.username,
                                     victimname=quest.victim.username,

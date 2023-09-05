@@ -6,7 +6,7 @@ class Item(models.Model):
     name = models.CharField(max_length=200)
     prep = models.CharField(max_length=50, default="", null=True)
     frequency = models.IntegerField(default=1)
-    banned = models.BooleanField(default=False)
+    ban_state = models.CharField(default="", max_length=50)
     
     def __str__(self):
         return f"{self.name} ({self.frequency})"
@@ -30,7 +30,6 @@ class Quest(models.Model):
     victim = models.ForeignKey(User, on_delete=models.CASCADE, related_name="victim_quests")
     verb = models.ForeignKey(KillVerb, on_delete=models.SET_NULL, null=True)
     state = models.CharField(default="unopened", max_length=50)
-    ban_state = models.CharField(default="", max_length=50)
     distance = models.IntegerField(null=True)
 
     def __str__(self):

@@ -78,7 +78,7 @@ export class QuestComponent {
     const initBanUrl: string = "state/initiateban/";
     console.log(this.questData)
     this._api.sendData(initBanUrl, {item_id: this.questData.item.id, note: this.ban_note}).subscribe(
-      res => this.questData.ban_state = "banning"
+      res => this.questData.item.ban_state = "banning"
     )
   }
 
