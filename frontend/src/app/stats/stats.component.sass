@@ -1,0 +1,68 @@
+:host
+    display: block
+    width: 100%
+    height: 100%
+
+.swipe-cont
+    position: relative
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    justify-content: flex-start
+    
+    &.transitioning
+        transition: transform 0.3s ease
+
+
+.stat-section-cont
+    width: 100%
+    box-sizing: border-box
+    padding: 5px
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    justify-content: space-between
+
+.stat-title
+    display: flex
+    align-items: center
+    justify-content: center
+    flex-grow: 1
+
+.bars-cont
+    flex-grow: 10
+    overflow-x: auto
+    display: flex
+    flex-direction: row
+    align-items: flex-end
+    justify-content: space-around
+
+.stat-bar
+    position: relative
+    --beforecontent: "default"
+    width: 20px
+    background: green
+    flex-shrink: 0
+    margin: 0 10px
+    transform-origin: bottom
+    &::before
+        content: var(--username)
+        position: relative
+        top: -50px
+        display: block
+        transform: rotate(-45deg)
+    &::after
+        content: var(--value)
+        position: relative
+        top: -40px
+        display: block
+    
+    &.negative
+        transform: rotate(180deg)
+
+        &::before
+            top: 135px
+            transform: rotate(135deg)
+        &::after
+            top: 93px
+            transform: rotate(180deg)

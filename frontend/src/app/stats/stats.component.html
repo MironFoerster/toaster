@@ -1,7 +1,18 @@
-<p>stats works!</p>
-
-<div id="stats-cont" class="v-swipeable-cont">
-    <div class="stat-sect" *ngFor="let stat of statsData">
-        
+<div class="swipe-cont" [style.transform]="swiperTransform" [class.transitioning]="isTransitioning">
+    <ng-container *ngFor="let stat of statsData | keyvalue">
+        <ng-container *ngTemplateOutlet="statSection; context: {$implicit: stat.value}"></ng-container>
+    </ng-container>
+</div>   
+<ng-template #statSection let-stat>
+    <div class="stat-section-cont" [style.height]="statHeight+'px'">
+        <div class="stat-title">{{ stat.title }}</div>
+        <div class="bars-cont">
+            <div *ngFor="let user of stat.personal_values" class="stat-bar" [style.--value]="stringWrap(user.value)"
+                                                                            [style.--username]="stringWrap(user.username)"
+                                                                            [style.height]="abs(user.value*100/(stat.max_value-min((stat.min_value || 0), 0)))+'%'"
+                                                                            [style.bottom]="((stat.min_value || 0) < 0? -stat.min_value*100/(stat.max_value-stat.min_value) : 0 )+'%'"
+                                                                            [class.negative]="user.value<0">
+            </div>
+        </div>
     </div>
-</div>
+</ng-template>
