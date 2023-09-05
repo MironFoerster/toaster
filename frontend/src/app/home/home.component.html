@@ -1,21 +1,20 @@
-<p>home works!</p>
-
 <div *ngIf="userIsAuthenticated(); then thenBlock else elseBlock"></div>
 
 <ng-template #thenBlock>
-    <a routerLink="dashboard"><button type="button">Dashboard</button></a>
+    <div routerLink="dashboard" class="dashboard-btn">📜</div>
 </ng-template>
 <ng-template #elseBlock>
-    <a routerLink="login"><button type="button">Login</button></a>
+    <div routerLink="login" class="login-btn">Login</div>
 </ng-template>
 
 
 <app-unread-logs (closeEvent)="closeUnreadLogs()" *ngIf="showUnreadLogs" [unreadLogs]="unreadLogs"></app-unread-logs>
 
-
-<router-outlet></router-outlet>
-<div class="bottom-nav-bar">
-    <a routerLink="stats">Stats</a>
-    <a routerLink="logs">Logs</a>
-    <a routerLink="blogs">Blogs</a>
+<div id="info-container">
+    <router-outlet></router-outlet>
+</div>
+<div id="bottom-nav-bar">
+    <div routerLink="stats">Stats</div>
+    <div routerLink="logs">Logs</div>
+    <div routerLink="blogs">Blogs</div>
 </div>

@@ -1,10 +1,10 @@
 <p>dashboard works!</p>
 <button (click)="logoutUser()">Logout</button>
-<a routerLink=''><button>Home</button></a>
+<button routerLink='../stats'>Home</button>
 <div class="action-board">
     <app-kill-val *ngFor="let val of vals; index as i; trackBy: getQuestId" [valData]="val" (requestClose)="closeVal(i)"></app-kill-val>
     <app-ban-vote *ngFor="let ban of bans; index as i; trackBy: getBanId" [banData]="ban" (requestClose)="closeBan(i)"></app-ban-vote>
 </div>
 <router-outlet></router-outlet>
-<a routerLink="quests"><button>Quests</button></a>
-<a routerLink="newitem"><button>New Item</button></a>
+<button routerLink="quests">Quests</button>
+<button routerLink="newitem">New Item</button>

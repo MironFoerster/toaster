@@ -47,7 +47,7 @@ Authorization: Token 931ad6e8c143f008c80d0c2679649a06f6b9cb8d
 
 GET http://127.0.0.1:8000/registry/unreadlogdata/
 Content-Type: application/json
-Authorization: Token 105a77f5a5ee75c58a1cdcf679604606b158202a
+Authorization: Token 931ad6e8c143f008c80d0c2679649a06f6b9cb8d
 
 {}
 
@@ -55,6 +55,16 @@ Authorization: Token 105a77f5a5ee75c58a1cdcf679604606b158202a
 
 GET http://127.0.0.1:8000/state/requestkillval/
 Content-Type: application/json
-Authorization: Token 105a77f5a5ee75c58a1cdcf679604606b158202a
+Authorization: Token 931ad6e8c143f008c80d0c2679649a06f6b9cb8d
 
 {"quest_id": 3, "distance": 100}
+
+###
+
+GET http://127.0.0.1:8000/registry/statsdata/
+Content-Type: application/json
+Authorization: Token 931ad6e8c143f008c80d0c2679649a06f6b9cb8d
+
+{}
+
+###
