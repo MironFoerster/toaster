@@ -73,6 +73,14 @@ export class QuestComponent {
     )
   }
 
+  initBan() {
+    const initBanUrl: string = "state/initiateban/";
+    console.log(this.questData)
+    this._api.sendData(initBanUrl, {item_id: this.questData.item.id, note: "somenoteTODO"}).subscribe(
+      res => this.questData.state = "banning"
+    )
+  }
+
   getSuccessConfirmMessage(): string {
     return `Du hast ${this.questData.victim.username} aus einer Entfernung von ${ this.distance } km mit ${ this.questData.item.prep } ${ this.questData.item.name } ${ this.questData.verb.ge }?`
   }

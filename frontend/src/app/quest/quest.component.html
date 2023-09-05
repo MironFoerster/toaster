@@ -6,24 +6,13 @@
     </ng-container>
 
     <ng-container *ngSwitchCase="'active'">
-        <div class="quest-opened-card">
-            <div>{{ questData.verb.imp }} {{ questData.victim.username }} mit {{ questData.item.prep }} {{ questData.item.name }}</div>
-            <div *ngIf="enterDistance; then distanceInput else defaultActions"></div>
-            <ng-template #distanceInput>
-                <div class="quest-btn-cont">
-                    <input type="number" placeholder="Entfernung von zuhause" [(ngModel)]="distance">
-                    <button (click)="enterDistance=false; openModal(getSuccessConfirmMessage(), requestKillVal.bind(this))">OK</button>
-                </div>
-            </ng-template>
-            <ng-template #defaultActions>
-                <div class="quest-btn-cont">
-                    <button (click)="openModal(
-                        'Du willst wirklich aufgeben?',
-                        surrender.bind(this))">Aufgeben</button>
-                    <button (click)="enterDistance=true">Erfüllt!</button>
-                </div>
-            </ng-template>
-        </div>
+        <ng-container *ngTemplateOutlet="openQuestCard"></ng-container>
+    </ng-container>
+    <ng-container *ngSwitchCase="'banning'">
+        <ng-container *ngTemplateOutlet="openQuestCard"></ng-container>
+    </ng-container>
+    <ng-container *ngSwitchCase="'banned'">
+        <ng-container *ngTemplateOutlet="openQuestCard"></ng-container>
     </ng-container>
 
     <ng-container *ngSwitchCase="'validating'">
@@ -32,3 +21,25 @@
         </div>
     </ng-container>
 </ng-container>
+
+<ng-template #openQuestCard>
+    <div class="quest-opened-card">
+        <div>{{ questData.verb.imp }} {{ questData.victim.username }} mit {{ questData.item.prep }} {{ questData.item.name }}</div>
+        <div *ngIf="enterDistance; then distanceInput else defaultActions"></div>
+        <ng-template #distanceInput>
+            <div class="quest-btn-cont">
+                <input type="number" placeholder="Entfernung von zuhause" [(ngModel)]="distance">
+                <button (click)="enterDistance=false; openModal(getSuccessConfirmMessage(), requestKillVal.bind(this))">OK</button>
+            </div>
+        </ng-template>
+        <ng-template #defaultActions>
+            <div class="quest-btn-cont">
+                <button (click)="openModal(
+                    'Du willst wirklich aufgeben?',
+                    surrender.bind(this))">Aufgeben</button>
+                <button (click)="enterDistance=true">Erfüllt!</button>
+                <button (click)="openModal('Willst du {{questData.item.name}} wirklich bannen?', initBan.bind(this))">Ban Item</button>
+            </div>
+        </ng-template>
+    </div>
+</ng-template>

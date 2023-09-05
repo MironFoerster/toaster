@@ -5,7 +5,7 @@ from toast_auth.serializers import UserSerializer
 class ItemSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Item
-        fields = ['name', 'prep']
+        fields = ['id', 'name', 'prep']
     
 class KillVerbSerializer(serializers.ModelSerializer):
     class Meta(object):

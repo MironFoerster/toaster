@@ -77,7 +77,21 @@ def validate_kill(request):
         quest.state = "active"
         quest.save()
         return Response("kill prevented")
-    
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def initiate_ban(request):
+    print(request.data)
+    ban_item = Item.objects.get(id=request.data["item_id"])
+    ban = PendingBan.objects.create(item=ban_item,
+                                    note=request.data["note"])
+    ban.users_voted.add(request.user)
+
+    Quest.objects.filter(item=ban_item).update(state='banning')
+
+    return Response("initiated ban")
+
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
@@ -97,12 +111,16 @@ def vote_ban(request):
 
         if ban.pro >= majority:
             ban.item.banned = True
+            Quest.objects.filter(item=ban.item).update(state='banned')
+
             new_info = Info.objects.create(type="ban",
                                            title=f"{ban.item.name} gebannt",
                                            message=f"{ban.item.name} wurde mit einem {ban.con}:{ban.pro} gebannt")
             new_info.save()
             ban.delete()
         elif ban.con > majority:
+            Quest.objects.filter(item=ban.item).update(state='active')
+
             new_info = Info.objects.create(type="ban",
                                            title=f"{ban.item.name} nicht gebannt",
                                            message=f"Der Bann von {ban.item.name} wurde mit einem {ban.pro}:{ban.con} verhindert")
