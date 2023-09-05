@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service'
 import { Observable, combineLatest } from 'rxjs';
+import { slideInOut } from '../app.animations';
 
 @Component({
   selector: 'app-logs',
   templateUrl: './logs.component.html',
-  styleUrls: ['./logs.component.sass']
+  styleUrls: ['./logs.component.sass'],
+  animations: [slideInOut]
 })
 export class LogsComponent implements OnInit {
 
   entries: any[] = [];
+  
+  @HostBinding('@slideInOut') get slideInOut() {return}
+
 
   constructor(private _api: ApiService) { }
 
