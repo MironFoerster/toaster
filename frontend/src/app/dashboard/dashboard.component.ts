@@ -35,7 +35,7 @@ export class DashboardComponent implements OnInit {
   }
 
   closeBan(index: number) {
-    this.vals.splice(index, 1)
+    this.bans.splice(index, 1)
   }
 
   logoutUser() {

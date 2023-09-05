@@ -30,7 +30,8 @@ def quests_data(request):
     quests = Quest.objects.all().filter(killer=request.user)
 
     while quests.count() < 3:
-        rand_item = random.choices(Item.objects.all(), [1/item["frequency"] for item in Item.objects.values("frequency")], k=1)[0]
+        unbanned_items = Item.objects.exclude(banned=True)
+        rand_item = random.choices(unbanned_items, [1/item["frequency"] for item in unbanned_items.values("frequency")], k=1)[0]
         rand_verb = random.choices(KillVerb.objects.all(), [1/verb["frequency"] for verb in KillVerb.objects.values("frequency")], k=1)[0]
         rand_item.frequency += 1
         rand_item.save()
@@ -82,15 +83,17 @@ def validate_kill(request):
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def initiate_ban(request):
-    print(request.data)
     ban_item = Item.objects.get(id=request.data["item_id"])
-    ban = PendingBan.objects.create(item=ban_item,
-                                    note=request.data["note"])
-    ban.users_voted.add(request.user)
+    if PendingBan.objects.exists(item=ban_item) or ban_item.banned:
+        return Response("already banning or banned")
+    else:
+        ban = PendingBan.objects.create(item=ban_item,
+                                        note=request.data["note"])
+        ban.users_voted.add(request.user)
 
-    Quest.objects.filter(item=ban_item).update(state='banning')
+        Quest.objects.filter(item=ban_item).update(ban_state='banning')
 
-    return Response("initiated ban")
+        return Response("initiated ban")
 
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
@@ -111,6 +114,8 @@ def vote_ban(request):
 
         if ban.pro >= majority:
             ban.item.banned = True
+            ban.item.save()
+
             Quest.objects.filter(item=ban.item).update(ban_state='banned')
 
             new_info = Info.objects.create(type="ban",

@@ -31,7 +31,7 @@ Authorization: Token 931ad6e8c143f008c80d0c2679649a06f6b9cb8d
 
 GET http://127.0.0.1:8000/state/bandata/
 Content-Type: application/json
-Authorization: Token 931ad6e8c143f008c80d0c2679649a06f6b9cb8d
+Authorization: Token f6f2e776e2f0948b0e7bb2d16666a4616f278881
 
 {}
 

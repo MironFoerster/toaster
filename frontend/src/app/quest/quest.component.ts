@@ -91,4 +91,8 @@ export class QuestComponent {
       next() {action()}, error() {console.log("error")}, complete() {console.log("complete")}
     })
   }
+
+  stringWrap(val: string): string {
+    return '"'+val+'"'
+  }
 }

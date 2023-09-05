@@ -23,6 +23,8 @@ class QuestSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PendingBanSerializer(serializers.ModelSerializer):
+    item = ItemSerializer()
+    users_voted = UserSerializer(many=True)
     class Meta(object):
         model = PendingBan
         fields = '__all__'
