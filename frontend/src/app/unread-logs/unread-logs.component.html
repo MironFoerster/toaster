@@ -1,11 +1,13 @@
 <div class="overlay" (click)="handleButtonClick($event)">
     <ng-container *ngIf="readingState === 'nounread'; then nounreadBlock else readingBlock"></ng-container>
+        
         <ng-template #nounreadBlock>
             <div class="unread-logs-message center-text">Nichts passiert, seit du das letzte mal dawarst...</div>
             <div class="tap-instructor center-text">
                 Zum Schließen Tippen
             </div>
         </ng-template>
+
         <ng-template #readingBlock>
             <div class="unread-logs-message">Seit du das letzte mal dawarst...</div>
 
@@ -16,8 +18,8 @@
             </div>
 
             <div id="unread-logs-btn" [class.unread]="readingState === 'unread'"
-                                                                        [class.reading]="readingState === 'reading'"
-                                                                        [class.read]="readingState === 'read'">
+                                    [class.reading]="readingState === 'reading'"
+                                    [class.read]="readingState === 'read'">
                 <div id="unread-counter">
                     {{ unreadLogs.length }}
                 </div>
@@ -28,7 +30,5 @@
                 Zum Schließen Tippen
             </div>
         </ng-template>
-
-    
 
 </div>

@@ -10,7 +10,7 @@ class Log(models.Model):
     verb = models.ForeignKey(KillVerb, on_delete=models.PROTECT)
     surrender = models.BooleanField(default=False)
     distance = models.IntegerField(default=0)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.killername} x {self.victimname} ({self.item.name})"
@@ -19,7 +19,7 @@ class Info(models.Model):
     type = models.CharField(max_length=50, default="")
     title = models.CharField(max_length=200, default="")
     message = models.TextField(default="")
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.title}"
@@ -27,7 +27,7 @@ class Info(models.Model):
 
 class Blog(models.Model):
     username = models.CharField(max_length=200, default="")
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=200, default="Title")
     text = models.TextField()
     log = models.ForeignKey(Log, on_delete=models.SET_NULL, null=True)

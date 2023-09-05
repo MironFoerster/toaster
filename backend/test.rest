@@ -47,7 +47,7 @@ Authorization: Token 931ad6e8c143f008c80d0c2679649a06f6b9cb8d
 
 GET http://127.0.0.1:8000/registry/unreadlogdata/
 Content-Type: application/json
-Authorization: Token 931ad6e8c143f008c80d0c2679649a06f6b9cb8d
+Authorization: Token c74e70c8b1c67bb58c57f8e1edb6a1b9d4965738
 
 {}
 

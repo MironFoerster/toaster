@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-unread-logs',
@@ -13,9 +14,17 @@ export class UnreadLogsComponent implements OnInit {
   readingLogSwitch: boolean = false;
   readingState: string
 
-  ngOnInit(): void {
-    this.readingState = this.unreadLogs.length? "unread" : "nounread";
+  constructor(private _api: ApiService) {}
 
+  ngOnInit(): void {
+    const unreadLogsUrl = "registry/unreadlogdata/";
+    this._api.fetchData(unreadLogsUrl).subscribe(
+      res => {
+        this.unreadLogs = res;
+        this.readingState = this.unreadLogs.length? "unread" : "nounread";
+        console.log(this.unreadLogs)
+        console.log(this.readingState)
+      })
   }
 
 
