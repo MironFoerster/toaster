@@ -43,10 +43,11 @@ export class QuestComponent {
   }
 
   distance: number;
+  ban_note: string;
   modalMessage: string;
   modalAction: Function;
   showModal: boolean;
-  enterDistance: boolean = false;
+  actionState: string = ''
 
   constructor(private _api: ApiService, private _modal: ModalService, private _viewContainer: ViewContainerRef) {}
 

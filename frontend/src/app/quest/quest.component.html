@@ -35,20 +35,33 @@
 
 
         <div>{{ questData.verb.imp }} {{ questData.victim.username }} mit {{ questData.item.prep }} {{ questData.item.name }}</div>
-        <div *ngIf="enterDistance; then distanceInput else defaultActions"></div>
-        <ng-template #distanceInput>
-            <div class="quest-btn-cont">
-                <input type="number" placeholder="Entfernung von zuhause" [(ngModel)]="distance">
-                <button (click)="enterDistance=false; openModal(getSuccessConfirmMessage(), requestKillVal.bind(this))">OK</button>
-            </div>
-        </ng-template>
-        <ng-template #defaultActions>
-            <div class="quest-btn-cont">
-                <button (click)="openModal(
-                    'Du willst wirklich aufgeben?',
-                    surrender.bind(this))">Aufgeben</button>
+        
+
+        <div class="quest-btn-cont">
+
+            <ng-container [ngSwitch]="actionState">
+                <ng-container *ngSwitchCase="'distance'">
+                        <input type="number" placeholder="Entfernung von zuhause" [(ngModel)]="distance">
+                        <button (click)="actionState=''; openModal(getSuccessConfirmMessage(), requestKillVal.bind(this))">OK</button>
+                        <button (click)="actionState=''">Abbrechen</button>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'ban_note'">
+                        <input type="text" placeholder="Dein Kommentar" [(ngModel)]="ban_note">
+                        <button (click)="actionState='';openModal('Willst du '+questData.item.name+' wirklich bannen?', initBan.bind(this))">{{ questData.item.name }} bannen</button>
+                        <button (click)="actionState=''">Abbrechen</button>
+                </ng-container>
+
+                <ng-container *ngSwitchDefault>
+                        <button (click)="openModal(
+                            'Du willst wirklich aufgeben?',
+                            surrender.bind(this))">Aufgeben</button>
+                        <button (click)="actionState='distance'">Erfüllt!</button>
                         <button *ngIf="!['banned', 'banning'].includes(questData.ban_state)" (click)="actionState='ban_note'">{{ questData.item.name }} bannen</button>
-            </div>
-        </ng-template>
+                </ng-container>
+            </ng-container>
+
+        </div>
+
     </div>
 </ng-template>
