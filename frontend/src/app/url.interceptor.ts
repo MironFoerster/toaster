@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class UrlInterceptor implements HttpInterceptor {
-  readonly apiBaseUrl = "https://toaster-mzp6.onrender.com";
+  readonly apiBaseUrl = "https://toaster-mzp6.onrender.com/";
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
