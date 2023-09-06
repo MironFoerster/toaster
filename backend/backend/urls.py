@@ -1,5 +1,7 @@
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
 from toast_auth import views as auth_views
 
 urlpatterns = [
@@ -9,3 +11,5 @@ urlpatterns = [
     path('registry/', include('registry.urls')),
     path('state/', include('state.urls')),
 ]
+
+urlpatterns+=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
