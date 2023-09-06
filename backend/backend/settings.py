@@ -141,6 +141,5 @@ CORS_ALLOW_HEADERS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'https://toaster-beryl.vercel.app/',
-    'https://toaster-mironfoerster.vercel.app/'
+    'https://toastergame.vercel.app/',
 ]
