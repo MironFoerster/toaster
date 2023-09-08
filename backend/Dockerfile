@@ -39,7 +39,9 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 # Copy the source code into the container.
 COPY . .
 
-RUN ["chmod", "+x", "/entrypoint.sh"]
+RUN test -e ./entrypoint.sh && echo "exists" || "missing"
+
+RUN ["chmod", "+x", "./entrypoint.sh"]
 
 # Expose the port that the application listens on.
 EXPOSE 8000
