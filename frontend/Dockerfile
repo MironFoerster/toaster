@@ -67,4 +67,23 @@ COPY --from=build /usr/src/app//dist .//dist
 EXPOSE 4200
 
 # Run the application.
-CMD npm run serve
+CMD npm started
+# Development stage
+
+FROM node:14 AS development
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 4200  # Port for the development server
+CMD ["npm", "start"]
+
+# Production stage
+FROM node:14 AS production
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --production
+COPY . .
+RUN npm run build
+EXPOSE 80  # Port for the production server
+CMD ["npm", "run", "serve"]
