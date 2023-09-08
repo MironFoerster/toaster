@@ -9,10 +9,10 @@
 # https://github.com/docker/awesome-compose
 services:
   server:
+    environment:
+      - DJANGO_SETTINGS_MODULE=backend.settings.local
     build:
       context: .
-    environment:
-      - SETTINGS_ENV=local
     ports:
       - 8000:8000
 
