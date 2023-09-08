@@ -3,7 +3,7 @@
 import os
 from .base import *
 
-ALLOWED_HOSTS = os.environ["ALLOWED_HOSTS"].split(" ").append("https://site--toasterapi--2vd4knhkkhn9.code.run")
+ALLOWED_HOSTS = os.environ["ALLOWED_HOSTS"].split(" ")
 SECRET_KEY = os.environ["SECRET_KEY"]
 DEBUG = os.environ["DEBUG"].lower() == "true"
 DATABASES = {
@@ -23,3 +23,5 @@ CORS_ALLOWED_ORIGINS = [
     os.environ["FRONTEND_ORIGIN"],
     "https://site--toasterapi--2vd4knhkkhn9.code.run"
 ]
+
+CSRF_TRUSTED_ORIGINS = os.environ["ALLOWED_HOSTS"].split(" ")
