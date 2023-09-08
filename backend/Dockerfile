@@ -42,6 +42,9 @@ USER appuser
 # Copy the source code into the container.
 COPY . .
 
+# Add execution privilege
+RUN chmod +x ./entrypoint.sh
+
 # Expose the port that the application listens on.
 EXPOSE 8000
 
