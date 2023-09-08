@@ -24,4 +24,4 @@ CORS_ALLOWED_ORIGINS = [
     "https://site--toasterapi--2vd4knhkkhn9.code.run"
 ]
 
-CSRF_TRUSTED_ORIGINS = os.environ["ALLOWED_HOSTS"].split(" ")
+CSRF_TRUSTED_ORIGINS = ["https://" + host for host in os.environ["ALLOWED_HOSTS"].split(" ")]
