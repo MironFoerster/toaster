@@ -1,89 +1,109 @@
-# syntax=docker/dockerfile:1
+# # syntax=docker/dockerfile:1
 
-# Comments are provided throughout this file to help you get started.
-# If you need more help, visit the Dockerfile reference guide at
-# https://docs.docker.com/engine/reference/builder/
+# # Comments are provided throughout this file to help you get started.
+# # If you need more help, visit the Dockerfile reference guide at
+# # https://docs.docker.com/engine/reference/builder/
 
-ARG NODE_VERSION=18.17.1
+# ARG NODE_VERSION=18.17.1
 
-################################################################################
-# Use node image for base image for all stages.
-FROM node:${NODE_VERSION}-alpine as base
+# ################################################################################
+# # Use node image for base image for all stages.
+# FROM node:${NODE_VERSION}-alpine as base
 
-# Set working directory for all build stages.
-WORKDIR /usr/src/app
-
-
-################################################################################
-# Create a stage for installing production dependecies.
-FROM base as deps
-
-# Download dependencies as a separate step to take advantage of Docker's caching.
-# Leverage a cache mount to /root/.npm to speed up subsequent builds.
-# Leverage bind mounts to package.json and package-lock.json to avoid having to copy them
-# into this layer.
-RUN --mount=type=bind,source=package.json,target=package.json \
-    --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=cache,target=/root/.npm \
-    npm ci --omit=dev
-
-################################################################################
-# Create a stage for building the application.
-FROM deps as build
-
-# Download additional development dependencies before building, as some projects require
-# "devDependencies" to be installed to build. If you don't need this, remove this step.
-RUN --mount=type=bind,source=package.json,target=package.json \
-    --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=cache,target=/root/.npm \
-    npm ci
-
-# Copy the rest of the source files into the image.
-COPY . .
-# Run the build script.
-RUN npm run build
-
-################################################################################
-# Create a new stage to run the application with minimal runtime dependencies
-# where the necessary files are copied from the build stage.
-FROM base as final
-
-# Use production node environment by default.
-ENV NODE_ENV production
-
-# Run the application as a non-root user.
-USER node
-
-# Copy package.json so that package manager commands can be used.
-COPY package.json .
-
-# Copy the production dependencies from the deps stage and also
-# the built application from the build stage into the image.
-COPY --from=deps /usr/src/app/node_modules ./node_modules
-COPY --from=build /usr/src/app//dist .//dist
+# # Set working directory for all build stages.
+# WORKDIR /usr/src/app
 
 
-# Expose the port that the application listens on.
-EXPOSE 4200
+# ################################################################################
+# # Create a stage for installing production dependecies.
+# FROM base as deps
 
-# Run the application.
-CMD npm started
-# Development stage
+# # Download dependencies as a separate step to take advantage of Docker's caching.
+# # Leverage a cache mount to /root/.npm to speed up subsequent builds.
+# # Leverage bind mounts to package.json and package-lock.json to avoid having to copy them
+# # into this layer.
+# RUN --mount=type=bind,source=package.json,target=package.json \
+#     --mount=type=bind,source=package-lock.json,target=package-lock.json \
+#     --mount=type=cache,target=/root/.npm \
+#     npm ci --omit=dev
 
-FROM node:14 AS development
+# ################################################################################
+# # Create a stage for building the application.
+# FROM deps as build
+
+# # Download additional development dependencies before building, as some projects require
+# # "devDependencies" to be installed to build. If you don't need this, remove this step.
+# RUN --mount=type=bind,source=package.json,target=package.json \
+#     --mount=type=bind,source=package-lock.json,target=package-lock.json \
+#     --mount=type=cache,target=/root/.npm \
+#     npm ci
+
+# # Copy the rest of the source files into the image.
+# COPY . .
+# # Run the build script.
+# RUN npm run build
+
+# ################################################################################
+# # Create a new stage to run the application with minimal runtime dependencies
+# # where the necessary files are copied from the build stage.
+# FROM base as final
+
+# # Use production node environment by default.
+# ENV NODE_ENV production
+
+# # Run the application as a non-root user.
+# USER node
+
+# # Copy package.json so that package manager commands can be used.
+# COPY package.json .
+
+# # Copy the production dependencies from the deps stage and also
+# # the built application from the build stage into the image.
+# COPY --from=deps /usr/src/app/node_modules ./node_modules
+# COPY --from=build /usr/src/app//dist .//dist
+
+
+# # Expose the port that the application listens on.
+# EXPOSE 4200
+
+# # Run the application.
+# CMD npm started
+# # Development stage
+
+# FROM node:14 AS development
+# WORKDIR /app
+# COPY package*.json ./
+# RUN npm install
+# COPY . .
+# EXPOSE 4200  # Port for the development server
+# CMD ["npm", "start"]
+
+# # Production stage
+# FROM node:14 AS production
+# WORKDIR /app
+# COPY package*.json ./
+# RUN npm install --production
+# COPY . .
+# RUN npm run build
+# EXPOSE 80  # Port for the production server
+# CMD ["npm", "run", "serve"]
+
+# base image
+FROM node:18.17.1
+
+# set working directory
 WORKDIR /app
-COPY package*.json ./
+
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install and cache app dependencies
+COPY package.json /app/package.json
 RUN npm install
-COPY . .
-EXPOSE 4200  # Port for the development server
-CMD ["npm", "start"]
+RUN npm install -g @angular/cli@7.3.9
 
-# Production stage
-FROM node:14 AS production
-WORKDIR /app
-COPY package*.json ./
-RUN npm install --production
-COPY . .
-RUN npm run build
-EXPOSE 80  # Port for the production server
-CMD ["npm", "run", "serve"]
+# add app
+COPY . /app
+
+# start app
+CMD ng serve --host 0.0.0.0

@@ -2,11 +2,11 @@
   "name": "frontend",
   "version": "0.0.0",
   "scripts": {
-    "ng": "echo 'ng'",
-    "start": "echo 'ng serve'",
-    "build": "echo 'ng build'",
-    "watch": "echo 'ng build --watch --configuration development'",
-    "test": "echo 'ng test'"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
