@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class UrlInterceptor implements HttpInterceptor {
-  readonly apiBaseUrl = "https://site--toasterapi--2vd4knhkkhn9.code.run/";
+  readonly apiBaseUrl = "http://127.0.0.1:8000/"; //"https://site--toasterapi--2vd4knhkkhn9.code.run/";
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
