@@ -15,7 +15,6 @@ from toast_auth.models import User
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def new_item(request):
-    print(request.data)
     Item.objects.create(name = request.data['name'], prep = request.data['prep'])
     return Response("added Item")
 
@@ -30,7 +29,7 @@ def quests_data(request):
     quests = Quest.objects.all().filter(killer=request.user)
 
     while quests.count() < 3:
-        unbanned_items = Item.objects.exclude(ban_state='banned')
+        unbanned_items = Item.objects.exclude(ban_state='banned').exclude(frequency=0)
         rand_item = random.choices(unbanned_items, [1/item["frequency"] for item in unbanned_items.values("frequency")], k=1)[0]
         rand_verb = random.choices(KillVerb.objects.all(), [1/verb["frequency"] for verb in KillVerb.objects.values("frequency")], k=1)[0]
         rand_item.frequency += 1

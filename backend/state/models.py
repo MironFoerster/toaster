@@ -5,8 +5,8 @@ from toast_auth.models import User
 class Item(models.Model):
     name = models.CharField(max_length=200)
     prep = models.CharField(max_length=50, default="", null=True)
-    frequency = models.IntegerField(default=1)
-    ban_state = models.CharField(default="", max_length=50)
+    frequency = models.IntegerField(default=0) # 0 for not yet approved
+    ban_state = models.CharField(default="unbanned", max_length=50) # unbanned, banning, banned
     
     def __str__(self):
         return f"{self.name} ({self.frequency})"
