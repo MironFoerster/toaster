@@ -35,7 +35,7 @@ def quests_data(request):
         rand_item.frequency += 1
         rand_item.save()
         already_victim_names = [quest.victim.username for quest in quests]
-        victim_user = random.choice(User.objects.exclude(username__in=already_victim_names).exclude(username=request.user.username))
+        victim_user = random.choice(User.objects.exclude(username__in=already_victim_names).exclude(username=request.user.username).exclude(is_staff=True))
         Quest.objects.create(item=rand_item, killer=request.user, victim=victim_user, verb=rand_verb)
         quests = Quest.objects.filter(killer=request.user)
     
@@ -110,7 +110,7 @@ def vote_ban(request):
         ban.save()
 
         # Check if complete
-        majority = math.ceil(User.objects.all().count() / 2)
+        majority = math.ceil(User.objects.all().exclude(is_staff=True).count() / 2)
 
         if ban.ban >= majority:
             ban.item.ban_state = 'banned'

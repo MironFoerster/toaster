@@ -87,7 +87,7 @@ def stats_data(request):
     for name, stat in statsData.items():
         stat["personal_values"] = []
 
-    users = User.objects.all() 
+    users = User.objects.all().exclude(is_staff=True)
     logs = Log.objects.all()
 
     for user in users:
