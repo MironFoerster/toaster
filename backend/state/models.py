@@ -43,9 +43,9 @@ class Quest(models.Model):
 class PendingBan(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     note = models.TextField(default="Keine Begründung.")
-    pro = models.IntegerField(default=1)
-    con = models.IntegerField(default=0)
+    ban = models.IntegerField(default=1)
+    keep = models.IntegerField(default=0)
     users_voted = models.ManyToManyField(User)
 
     def __str__(self):
-        return f"{self.item} ({self.pro}, {self.con})"
+        return f"{self.item} ({self.ban}, {self.keep})"

@@ -101,10 +101,10 @@ def initiate_ban(request):
 def vote_ban(request):
     ban = PendingBan.objects.get(id=request.data['ban_id'])
     if not ban.users_voted.filter(id=request.user.id).exists():
-        if request.data['pro']:
-            ban.pro += 1
+        if request.data['ban']:
+            ban.ban += 1
         else:
-            ban.con += 1
+            ban.keep += 1
 
         ban.users_voted.add(request.user)
         ban.save()
@@ -112,22 +112,22 @@ def vote_ban(request):
         # Check if complete
         majority = math.ceil(User.objects.all().count() / 2)
 
-        if ban.pro >= majority:
+        if ban.ban >= majority:
             ban.item.ban_state = 'banned'
             ban.item.save()
 
             new_info = Info.objects.create(type="ban",
                                            title=f"{ban.item.name} gebannt",
-                                           message=f"{ban.item.name} wurde mit einem {ban.con}:{ban.pro} gebannt")
+                                           message=f"{ban.item.name} wurde mit einem {ban.keep}:{ban.ban} gebannt")
             new_info.save()
             ban.delete()
-        elif ban.con > majority:
+        elif ban.keep > majority:
             ban.item.ban_state = ''
             ban.item.save()
 
             new_info = Info.objects.create(type="ban",
                                            title=f"{ban.item.name} nicht gebannt",
-                                           message=f"Der Bann von {ban.item.name} wurde mit einem {ban.pro}:{ban.con} verhindert")
+                                           message=f"Der Bann von {ban.item.name} wurde mit einem {ban.ban}:{ban.keep} verhindert")
             new_info.save()
             ban.delete()
 

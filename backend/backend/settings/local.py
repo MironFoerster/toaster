@@ -1,6 +1,6 @@
 from .base import *
 
-ALLOWED_HOSTS = ["127.0.0.1", 'localhost']
+ALLOWED_HOSTS = ["127.0.0.1", 'localhost', '192.168.2.106']
 SECRET_KEY = '4hd498h3045zrdjfu786rjrlnvcp237b'
 DEBUG = True
 DATABASES = {
@@ -12,4 +12,5 @@ DATABASES = {
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:4200',
+    'http://192.168.2.106:4200'
 ]

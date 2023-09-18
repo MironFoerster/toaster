@@ -6,8 +6,9 @@ from toast_auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth/login/', auth_views.login, name='login'),
-    path('testtoken/', auth_views.test_token, name='testtoken'),
+    path('auth/login/', auth_views.login),
+    path('userdata/', auth_views.user_data),
+    path('testtoken/', auth_views.test_token),
     path('registry/', include('registry.urls')),
     path('state/', include('state.urls')),
 ]
