@@ -12,9 +12,9 @@ export class BanVoteComponent {
 
   constructor(private _api: ApiService) {}
 
-  voteBan(pro: boolean) {
+  voteBan(ban: boolean) {
     const voteBanUrl: string = "state/voteban/";
-    this._api.sendData(voteBanUrl, {ban_id: this.banData.id, pro: pro}).subscribe(
+    this._api.sendData(voteBanUrl, {ban_id: this.banData.id, ban: ban}).subscribe(
       res => this.requestClose.emit()
     )
   }

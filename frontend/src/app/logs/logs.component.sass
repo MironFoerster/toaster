@@ -4,19 +4,11 @@
     display: flex
     flex-direction: column
     justify-content: flex-start
-    align-items: stretch
+    align-items: center
     overflow: auto
 
-.entry
-    margin: 5px 20px
-    border-radius: 10px
-    height: 40px
-    
-    &.surrender
-        background: red
+    app-log-card:first-child
+        margin-top: 20vh
 
-    &.success
-        background: green
-
-    &.info
-        background: gray
+    app-log-card:last-child
+        margin-bottom: 20vh

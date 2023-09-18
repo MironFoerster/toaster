@@ -1,7 +1,5 @@
 <div class="modal-card">
     <p class="modal-message">{{ message }}</p>
-    <div class="modal-btn-cont">
-        <button (click)="confirm()">Jup</button>
-        <button (click)="cancel()">Abbrechen</button>
-    </div>
+    <button id="modal-ok" (click)="confirm()"></button>
+    <button id="modal-cancel" (click)="cancel()"></button>
 </div>

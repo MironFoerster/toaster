@@ -1,0 +1,58 @@
+:host
+    width: 80%
+    background-color: transparent
+    background-image: url(../../assets/banvote_card.svg)
+    background-size: 100% 100%
+    display: flex
+    flex-wrap: wrap
+    align-items: center
+    justify-content: space-around
+    padding: 1em
+
+
+.banvote-message
+    font-size: 5vw
+    width: 100%
+    align-self: center
+    background-color: transparent
+    color: #4299eb
+    font-weight: bold
+    text-align: center
+
+.banvote-ban, .banvote-keep
+    border: none
+    background-color: transparent
+    aspect-ratio: 1
+    width: 40%
+    margin: 5%
+    background-size: 100% 100%
+
+.banvote-ban
+    background-image: url(../../assets/banvote_button_ban.svg)
+
+.banvote-keep
+    background-image: url(../../assets/banvote_button_keep.svg)
+
+.vote-bar
+    --totalplayers: 15
+    margin: 1em 0
+    width: 90%
+    height: 1em
+    position: relative
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 49%, rgba(0,0,0,1) 49%, rgba(0,0,0,1) 51%, rgba(255,255,255,1) 51%, rgba(255,255,255,1) 100%)
+
+    &::before
+        content: ""
+        height: 100%
+        width: calc(var(--keep) / var(--totalplayers) * 100%)
+        position: absolute
+        left: 0
+        background: green
+
+    &::after
+        content: ""
+        height: 100%
+        width: calc(var(--ban) / var(--totalplayers) * 100%)
+        position: absolute
+        right: 0
+        background: red

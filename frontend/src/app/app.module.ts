@@ -27,6 +27,7 @@ import { BanVoteComponent } from './ban-vote/ban-vote.component';
 import { QuestComponent } from './quest/quest.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { UnreadLogsComponent } from './unread-logs/unread-logs.component';
+import { LogCardComponent } from './log-card/log-card.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { UnreadLogsComponent } from './unread-logs/unread-logs.component';
     QuestComponent,
     ConfirmModalComponent,
     UnreadLogsComponent,
+    LogCardComponent,
   ],
   imports: [
     BrowserModule,

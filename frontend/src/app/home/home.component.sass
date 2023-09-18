@@ -6,37 +6,63 @@
   align-items: stretch
   justify-content: space-between
 
-.dashboard-btn, .login-btn
-  height: 60px
+.dashboard-btn
+  z-index: 1
+  background-size: contain
+  background-position: center
+  background-repeat: no-repeat
+  background-color: transparent
+  width: 20vw
   aspect-ratio: 1
-  border-radius: 50%
-  display: flex
-  align-items: center
-  justify-content: center
-  background: blue
-  align-self: flex-end
-  margin: 10px 10px 0px 0px
-  flex-shrink: 0
+  border: none
+  position: fixed
+  top: 10px
+  right: 10px
+  background-image: url(../../assets/home_dashboard.svg)
 
 #info-container
   flex-grow: 1
   overflow: hidden
 
 #bottom-nav-bar
-  padding: 10px
-  background: green
+  position: fixed
+  bottom: 0
+  left: 0 
+  right: 0
+  background-color: transparent
+  padding: 2vw 10vw 1vw 10vw
+  background-image: url(../../assets/bottom_nav.svg)
+  background-size: 95% 100%
+  background-repeat: no-repeat
+  background-position: center
   display: flex
   justify-content: space-around
   align-items: center
+  input[type="radio"]
+    display: none
 
-  div
-    background: red
-    width: 70px
-    height: 30px
+  label
+    margin: 0 2vw
+    box-sizing: content-box
+    width: 80px
+    height: 50px
     display: flex
     align-items: center
     justify-content: center
-    border-radius: 30px
+    background-image: url(../../assets/nav_button.svg)
+    background-size: 100% 100%
+    -webkit-transition: background-image 0.1s ease-in-out
+    transition: background-image 0.1s ease-in-out
+
+    img
+      height: 55%
+      width: 55%
+      transform: translate(0, 0)
+      transition: transform 0.1s ease
+  
+  input[type="radio"]:checked + label
+    background-image: url(../../assets/nav_button_active.svg)
+    transform: translate(1px, 1px)
 
 
 

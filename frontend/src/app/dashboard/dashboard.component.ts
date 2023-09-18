@@ -9,16 +9,22 @@ import { ApiService } from '../services/api.service'
 export class DashboardComponent implements OnInit {
   vals: any[] = [];
   bans: any[] = [];
+  sessionUsername: any;
   constructor(private _auth: AuthService, private _api: ApiService) { }
 
   ngOnInit(): void {
     const killvalUrl = "state/killvaldata/";
     const banUrl = "state/bandata/";
+    const userUrl = "userdata/";
+
     this._api.fetchData(killvalUrl).subscribe(
       res => this.vals = res
     )
     this._api.fetchData(banUrl).subscribe(
       res => this.bans = res
+    )
+    this._api.fetchData(userUrl).subscribe(
+      res => this.sessionUsername = res.username
     )
   }
 

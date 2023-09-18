@@ -1,7 +1,3 @@
-<div class="card action-card">
-    <p>Hat {{valData.killer.username}} dich mit {{ valData.item.prep }} {{valData.item.name}} aus einer Entfernung von {{ valData.distance }} km {{ valData.verb.ge }}?</p>
-    <div class="actn-btn-cont">
-        <button (click)="validateKill(false)">Bitte? Nein!?😧</button>
-        <button (click)="validateKill(true)">Naja...schon iwie😒</button>
-    </div>
-</div>
+<div class="killval-message">Hat {{valData.killer.username}} dich mit {{ valData.item.prep }} {{valData.item.name}} aus einer Entfernung von {{ valData.distance }} km {{ valData.verb.ge }}?</div>
+<button class="killval-ok" (click)="validateKill(true)"></button>
+<button class="killval-cancel" (click)="validateKill(false)"></button>

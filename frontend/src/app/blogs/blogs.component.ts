@@ -9,7 +9,8 @@ import { slideInOut } from '../app.animations';
   animations: [slideInOut]
 })
 export class BlogsComponent implements OnInit {
-
+  newBlogState: string = "default"
+  inputText: string
   blogs: any[] = [];
 
   @HostBinding('@slideInOut') get slideInOut() {return}
@@ -22,6 +23,25 @@ export class BlogsComponent implements OnInit {
       res => this.blogs = res
     )
   }
-  
+
+  submitNewBlog() {
+    this.newBlogState=''
+    const newBlogUrl = "registry/newblog/";
+    this._api.sendData(newBlogUrl, {text: this.inputText}).subscribe(
+      res => this.blogs.unshift(res)
+    )
+  }
+
+  parseDate(isoDateString: string) {
+    const date = new Date(isoDateString)
+
+    const options: Intl.DateTimeFormatOptions = {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }
+
+    return date.toLocaleDateString('de-DE', options)
+  }
 
 }

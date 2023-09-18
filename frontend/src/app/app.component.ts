@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 
 @Component({
@@ -6,8 +6,18 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   title = 'frontend';
 
   constructor() {}
+
+  ngAfterViewInit(): void {
+    let viewheight = window.document.documentElement.clientHeight;
+    let viewwidth = window.document.documentElement.clientWidth;
+    let viewport = document.createElement("meta");
+    viewport.name = "viewport"
+    viewport.content = "height=" + viewheight + "px, width=" + viewwidth + "px, initial-scale=1.0"
+    document.body.appendChild(viewport)
+  }
 }
+

@@ -1,7 +1,14 @@
-<div *ngFor="let blog of blogs">
-    <h3>{{ blog.title }}</h3>
-    <p>{{ blog.date }}</p>
-    <p>{{ blog.log.message }}</p>
-    <p>{{ blog.user }}</p>
-    <p>{{ blog.text }}</p>
+<div id="blog-input-cont" [class.writing]="newBlogState=='writing'"
+                          [class.empty]="newBlogState=='empty'">
+    <button id="blog-btn" (click)="newBlogState=='writing'? submitNewBlog() : newBlogState=='empty'? newBlogState='' : newBlogState='empty'"></button>
+    <textarea id="blog-input-area" (input)="inputText.trim()===''? newBlogState='empty' : newBlogState='writing'" [(ngModel)]="inputText"></textarea>
+</div>
+
+<div class="blog-card" *ngFor="let blog of blogs">
+    <p>{{ blog.text.replace('\n', '\<br\>') }}</p>
+    <!-- <h3>{{ blog.title }}</h3> -->
+    <p class="blog-date">{{ parseDate(blog.date) }}</p>
+    <!-- <p>{{ blog.log.message }}</p> -->
+    <p class="blog-author">{{ blog.username }}</p>
+    
 </div>

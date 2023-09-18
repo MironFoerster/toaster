@@ -1,7 +1,7 @@
 <div *ngIf="userIsAuthenticated(); then thenBlock else elseBlock"></div>
 
 <ng-template #thenBlock>
-    <div routerLink="dashboard" class="dashboard-btn">📜</div>
+    <div routerLink="dashboard" class="dashboard-btn"></div>
 </ng-template>
 <ng-template #elseBlock>
     <div routerLink="login" class="login-btn">Login</div>
@@ -14,7 +14,16 @@
     <router-outlet></router-outlet>
 </div>
 <div id="bottom-nav-bar">
-    <div routerLink="stats">Stats</div>
-    <div routerLink="logs">Logs</div>
-    <div routerLink="blogs">Blogs</div>
+    <input type="radio" name="nav" id="stats" routerLink="stats">
+    <label for="stats">
+        <img src="../../assets/nav_stats.svg" alt="">
+    </label>
+    <input type="radio" name="nav" id="logs" routerLink="logs">
+    <label for="logs">
+        <img src="../../assets/nav_logs.svg" alt="">
+    </label>
+    <input type="radio" name="nav" id="blogs" routerLink="blogs">
+    <label for="blogs">
+        <img src="../../assets/nav_blogs.svg" alt="">
+    </label>
 </div>

@@ -10,6 +10,7 @@ import { slideInOut } from '../app.animations';
   animations: [slideInOut]
 })
 export class LogsComponent implements OnInit {
+  username: string
 
   entries: any[] = [];
   
@@ -19,14 +20,20 @@ export class LogsComponent implements OnInit {
   constructor(private _api: ApiService) { }
 
   ngOnInit(): void {
+    const userUrl = "userdata/";
     const logUrl = "registry/logdata/";
     const infoUrl = "registry/infodata/";
 
+    this._api.fetchData(userUrl).subscribe(res => {
+      this.username = res.username; console.log(res.username)
+    })
     const logObserve: Observable<any> = this._api.fetchData(logUrl)
     const infoObserve: Observable<any> = this._api.fetchData(infoUrl)
 
     combineLatest([logObserve, infoObserve]).subscribe(([logs, infos]) => {
-      this.entries = [...logs, ...infos].sort((a,b)=> b.date < a.date? 1 : -1)
+      console.log(infos)
+      this.entries = [...logs, ...infos].sort((a,b)=> b.date > a.date? 1 : -1)
+      console.log(this.entries)
     });
   }
   

@@ -1,8 +1,29 @@
+@font-face
+    font-family: soon
+    src: url(assets/ComingSoon-Regular.woff) format('woff')
+
+@font-face
+    font-family: lucky
+    src: url(assets/LuckiestGuy-Regular.woff) format('woff')
+
+$body-color: darken(#7e0069, 0%)
+
 body
+    font-family: soon
+    width: 100vw
+    height: 100vh
     padding: 0
     margin: 0
+    background-color: $body-color
+
+*
+    font-size: 2vh
+    padding: 0
+    margin: 0
+
 .overlay
     position: fixed
+    z-index: 2
     top: 0
     left: 0
     width: 100%
@@ -11,16 +32,22 @@ body
     display: flex
     flex-direction: column
     align-items: center
-    justify-content: center
+    justify-content: space-evenly
 
 .tap-instructor
     position: absolute
     bottom: 15vh
     left: 50%
     transform: translateX(-50%)
+    color: white
+    font-size: smaller    
 
 .center-text
     display: flex
     align-items: center
     justify-content: center
     text-align: center
+
+app-log-card span, app-quest span
+    font-family: lucky
+

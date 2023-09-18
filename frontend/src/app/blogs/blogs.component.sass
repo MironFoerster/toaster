@@ -1,5 +1,86 @@
 :host
+    box-sizing: border-box
+    height: 100%
+    width: 100%
     display: flex
     flex-direction: column
     align-items: stretch
     justify-content: flex-start
+    padding: 0 5vw
+    overflow-y: scroll
+
+    .blog-card:last-child
+        margin-bottom: 20vh
+
+.blog-card
+    box-sizing: border-box
+    background-color: transparent
+    background-image: url(../../assets/blog_card.svg)
+    background-size: 100% 100%
+    background-repeat: no-repeat
+    margin: 2vw 0
+    position: relative
+    padding: 5% 5% 15% 5%
+
+    .blog-date
+        position: absolute
+        bottom: 5%
+        right: 5%
+    
+    .blog-author
+        position: absolute
+        bottom: 5%
+        left: 5%
+
+#blog-input-cont
+    margin-top: 20vh
+    width: 100%
+    box-sizing: border-box
+    padding: 5vw 0
+    display: flex
+    flex-direction: row-reverse
+    align-items: center
+    justify-content: center
+    position: relative
+
+    #blog-btn
+        border: none
+        background-color: transparent
+        aspect-ratio: 1
+        margin-left: 0
+        height: 15vw
+        background-image: url(../../assets/dashboard_new.svg)
+        background-size: contain
+
+    &.empty, &.writing
+        #blog-btn
+            margin-left: 5vw
+    
+    &.empty
+        #blog-btn
+            background-image: url(../../assets/quest_button_surrender.svg)
+    
+    &.writing
+        #blog-btn
+            background-image: url(../../assets/quest_button_send.svg)
+    
+    #blog-input-area
+        width: 0
+        height: 2em
+        padding: 0
+        transition: width 0.2s ease,  height 0.2s ease,  padding 0.2s ease
+        border: none
+        box-sizing: border-box
+        background-color: transparent
+        background-image: url(../../assets/quest_input.svg)
+        background-size: 100% 100%
+        color: #bb1818
+        border-radius: 0
+        outline: none
+
+    &.empty, &.writing
+        #blog-input-area
+            width: 70vw
+            padding: 5% 5%
+            height: 5em
+

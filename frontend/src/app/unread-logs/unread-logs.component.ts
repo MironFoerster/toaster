@@ -13,11 +13,17 @@ export class UnreadLogsComponent implements OnInit {
   readingLog: any;
   readingLogSwitch: boolean = false;
   readingState: string
+  username: string
 
   constructor(private _api: ApiService) {}
 
   ngOnInit(): void {
+    const userUrl = "userdata/";
     const unreadLogsUrl = "registry/unreadlogdata/";
+
+    this._api.fetchData(userUrl).subscribe(res => {
+      this.username = res.username; console.log(res.username)
+    })
     this._api.fetchData(unreadLogsUrl).subscribe(
       res => {
         this.unreadLogs = res;
@@ -45,7 +51,7 @@ export class UnreadLogsComponent implements OnInit {
         if (this.unreadLogs.length === 0) {
           this.readingState = "read";
         }
-        setTimeout(() => this.readingLogSwitch = true, 1)
+        setTimeout(() => this.readingLogSwitch = true, 505)
         
         break;
       case 'read':

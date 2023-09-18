@@ -11,7 +11,7 @@ export class ModalService {
   viewContainer: ViewContainerRef;
 
   constructor() { }
-  open(message: string, viewContainer: ViewContainerRef): Observable<void> {
+  openModal(message: string, viewContainer: ViewContainerRef): Observable<void> {
     const modalCompRef = viewContainer.createComponent(ConfirmModalComponent)
 
     modalCompRef.instance.message = message

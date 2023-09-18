@@ -1,0 +1,69 @@
+:host
+    height: 100vh
+    width: 100vw
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+
+
+
+#dashboard-name
+    font-family: soon
+    font-size: x-large
+    flex-grow: 1
+    margin-top: 40vw
+
+
+#action-board
+    position: relative
+    align-self: stretch
+    height: 40vh
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: flex-start
+    flex-grow: 1
+
+    p
+        font-family: lucky
+        font-size: medium
+
+    &::before
+        position: absolute
+        z-index: -1
+        top: 30px
+        content: "Aktuell keine anstehenden Aktionen."
+
+.dashboard-btn
+    background-size: contain
+    background-position: center
+    background-repeat: no-repeat
+    background-color: transparent
+    width: 20vw
+    z-index: 1
+    aspect-ratio: 1
+    border: none
+
+#quests-btn
+    width: 80%
+    height: 20vh
+    padding-left: 16%
+    background-image: url(../../assets/dashboard_quests.svg)
+    aspect-ratio: auto
+    font-size: 15px
+#logout-btn
+    position: fixed
+    top: 10px
+    right: 10px
+    background-image: url(../../assets/dashboard_logout.svg)
+#home-btn
+    position: fixed
+    bottom: 10px
+    left: 10px
+    background-image: url(../../assets/dashboard_home.svg)
+#new-btn
+    position: fixed
+    bottom: 10px
+    right: 10px
+    background-image: url(../../assets/dashboard_new.svg)

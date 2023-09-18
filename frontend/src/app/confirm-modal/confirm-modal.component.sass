@@ -4,31 +4,47 @@
     left: 0
     width: 100%
     height: 100%
-    background-color: rgba(0, 0, 0, 0.5)
+    background-color: rgba(0, 0, 0, 0.705)
     display: flex
     justify-content: center
     align-items: center
-
-.modal-message
-    align-self: center
+    z-index: 20
 
 .modal-card
-    height: 100px
     width: 70%
-    background-color: yellow
-    border-radius: 20px
+    background-color: transparent
     display: flex
-    flex-direction: column
-    align-items: stretch
-    justify-content: space-around
-
-.modal-btn-cont
-    display: flex
+    flex-wrap: wrap
     align-items: center
-    justify-content: space-evenly
+    justify-content: space-between
 
-    button
-        background: red
+.modal-message
+    font-size: 5vw
+    width: 100%
+    padding: 1em
+    align-self: center
+    background-size: 100% 100%
+    background-color: transparent
+    background-image: url(../../assets/modal_card_message.svg)
+    color: #4299eb
+    font-weight: bold
+    text-align: center
+
+
+#modal-ok, #modal-cancel
+    border: none
+    background-color: transparent
+    aspect-ratio: 1
+    width: 40%
+    margin: 5%
+    background-size: 100% 100%
+
+#modal-ok
+    background-image: url(../../assets/modal_button_ok.svg)
+
+#modal-cancel
+    background-image: url(../../assets/modal_button_cancel.svg)
+
 
 
 

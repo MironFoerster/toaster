@@ -38,6 +38,7 @@ import {
 export class QuestComponent {
   @Input() questData: any;
   @Output() questRemoved = new EventEmitter();
+
   @HostBinding('@questEnterLeave') get questEnterLeave() {
     return "true"
   }
@@ -58,6 +59,17 @@ export class QuestComponent {
     this._api.sendData(questOpenedUrl, {quest_id: this.questData.id}).subscribe(
       res => this.questData.state = "active"
     )
+  }
+
+  openActions() {
+    if (this.actionState=="") {
+      this.actionState = 'open'
+    }
+  }
+
+  changeActionTo(event: any, action: string) {
+    event.stopPropagation()
+    this.actionState = action
   }
 
   surrender() {
@@ -87,12 +99,15 @@ export class QuestComponent {
   }
 
   openModal(message: string, action: Function) {
-    this._modal.open(message, this._viewContainer).pipe(first()).subscribe({
+    this._modal.openModal(message, this._viewContainer).pipe(first()).subscribe({
       next() {action()}, error() {console.log("error")}, complete() {console.log("complete")}
     })
   }
 
   stringWrap(val: string): string {
     return '"'+val+'"'
+  }
+  log(t: string) {
+    console.log(t)
   }
 }

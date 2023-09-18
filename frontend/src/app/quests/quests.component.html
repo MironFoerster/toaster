@@ -4,6 +4,6 @@
         <app-quest *ngFor="let quest of quests;trackBy: getQuestId" [questData]="quest" (questRemoved)="loadQuests()"></app-quest>
     </div>
 
-    <button routerLink=".." type="button">close</button>
+    <button routerLink=".." id="quests-close-btn"></button>
 
 </div>

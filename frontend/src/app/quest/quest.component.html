@@ -1,32 +1,16 @@
-<ng-container [ngSwitch]="questData.state">
-    <ng-container *ngSwitchCase="'unopened'">
-        <div class="quest-unopened-card" (click)="openCard()">
-            <p>Click to open!</p>
-        </div>
-    </ng-container>
 
-    <ng-container *ngSwitchCase="'active'">
-        <ng-container *ngTemplateOutlet="openQuestCard"></ng-container>
-    </ng-container>
-
-    <ng-container *ngSwitchCase="'validating'">
-        <div class="quest-validating-card">
-            <p>validating</p>
-        </div>
-    </ng-container>
-</ng-container>
-
-<ng-template #openQuestCard>
-    <div class="quest-opened-card">
-
+    <div class="quest-card" (click)="questData.state=='unopened'? openCard() : openActions()"
+                            [class.unopened]="questData.state=='unopened'"
+                            [class.active]="questData.state=='active'"
+                            [class.validating]="questData.state=='validating'">
         <ng-container [ngSwitch]="questData.item.ban_state">
 
             <ng-container *ngSwitchCase="'banning'">
-                <div class="ban-state-info" [style.--tooltipcontent]="stringWrap('Über '+questData.item.name+' wird gerade abgestimmt.')">!</div>
+                <div class="ban-state-info" (click)="$event.stopPropagation()" [style.--tooltipcontent]="stringWrap('Über '+questData.item.name+' wird gerade abgestimmt.')">!</div>
             </ng-container>
 
             <ng-container *ngSwitchCase="'banned'">
-                <div class="ban-state-info" [style.--tooltipcontent]="stringWrap(questData.item.name+' wurde gebannt. Du kannst ohne Konsequenzen aufgeben!')">!</div>
+                <div class="ban-state-info" (click)="$event.stopPropagation()" [style.--tooltipcontent]="stringWrap(questData.item.name+' wurde gebannt. Du kannst ohne Konsequenzen aufgeben!')">!</div>
             </ng-container>
 
             <ng-container *ngSwitchDefault></ng-container>
@@ -34,34 +18,31 @@
         </ng-container>
 
 
-        <div>{{ questData.verb.imp }} {{ questData.victim.username }} mit {{ questData.item.prep }} {{ questData.item.name }}</div>
+        <div class="quest-message">{{ questData.verb.imp }} <span>{{ questData.victim.username }}</span> mit {{ questData.item.prep }} <span>{{ questData.item.name }}</span></div>
         
 
-        <div class="quest-btn-cont">
+        <div *ngIf="!(actionState==='')" class="quest-btn-cont">
 
             <ng-container [ngSwitch]="actionState">
                 <ng-container *ngSwitchCase="'distance'">
-                        <input type="number" placeholder="Entfernung von zuhause" [(ngModel)]="distance">
-                        <button (click)="actionState=''; openModal(getSuccessConfirmMessage(), requestKillVal.bind(this))">OK</button>
-                        <button (click)="actionState=''">Abbrechen</button>
+                        <input type="number" placeholder="KM" [(ngModel)]="distance">
+                        <button class="send-btn" (click)="changeActionTo($event, ''); openModal(getSuccessConfirmMessage(), requestKillVal.bind(this))"></button>
                 </ng-container>
 
                 <ng-container *ngSwitchCase="'ban_note'">
-                        <input type="text" placeholder="Dein Kommentar" [(ngModel)]="ban_note">
-                        <button (click)="actionState='';openModal('Willst du '+questData.item.name+' wirklich bannen?', initBan.bind(this))">{{ questData.item.name }} bannen</button>
-                        <button (click)="actionState=''">Abbrechen</button>
+                        <input type="text" placeholder="Kommentar" [(ngModel)]="ban_note">
+                        <button class="send-btn"  (click)="changeActionTo($event, ''); openModal('Willst du '+questData.item.name+' wirklich bannen?', initBan.bind(this))"></button>
                 </ng-container>
 
                 <ng-container *ngSwitchDefault>
-                        <button (click)="openModal(
-                            'Du willst wirklich aufgeben?',
-                            surrender.bind(this))">Aufgeben</button>
-                        <button (click)="actionState='distance'">Erfüllt!</button>
-                        <button *ngIf="!['banned', 'banning'].includes(questData.item.ban_state)" (click)="actionState='ban_note'">{{ questData.item.name }} bannen</button>
+                    <button id="ban-btn" *ngIf="!['banned', 'banning'].includes(questData.item.ban_state)" (click)="actionState='ban_note'; log(actionState)">{{ questData.item.name }} bannen</button>
+                        <button id="surrender-btn" (click)="openModal(
+                            'Willst du wirklich aufgeben?',
+                            surrender.bind(this))"></button>
+                        <button id="success-btn" (click)="changeActionTo($event, 'distance')"></button>
                 </ng-container>
             </ng-container>
 
-        </div>
+            <button class="cancel-btn" (click)="changeActionTo($event, '')"></button>
 
-    </div>
-</ng-template>
+        </div>

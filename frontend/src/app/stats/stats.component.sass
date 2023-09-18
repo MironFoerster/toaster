@@ -17,7 +17,7 @@
 .stat-section-cont
     width: 100%
     box-sizing: border-box
-    padding: 5px
+    padding: 15vh 0 20vh
     display: flex
     flex-direction: column
     align-items: stretch
@@ -27,32 +27,60 @@
     display: flex
     align-items: center
     justify-content: center
+    height: 10%
+    font-size: 10vw
+    font-family: lucky
+    
+
+.stat-content
+    overflow-x: auto
     flex-grow: 1
+    padding: 0 5vw
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    justify-content: space-between
+    box-sizing: border-box
+
+.hr
+    width: 100%
+    height: 3px
+    background-color: black
 
 .bars-cont
     flex-grow: 10
-    overflow-x: auto
     display: flex
     flex-direction: row
-    align-items: flex-end
-    justify-content: space-around
+    align-items: stretch
+    justify-content: flex-start
+    --justify: flex-end
+    --uniturl: var(--dfltuniturl)
+
+    &.negative
+        --justify: flex-start
+        --uniturl: var(--neguniturl)
 
 .stat-bar
     position: relative
-    width: 20px
-    background: green
+    width: 15vw
+    background: transparent
     flex-shrink: 0
-    margin: 0 10px
+    margin: 0 5px
     transform-origin: bottom
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    justify-content: var(--justify)
+
     &::before
         content: var(--username)
-        position: relative
+        position: absolute
         top: -50px
         display: block
         transform: rotate(-45deg)
     &::after
         content: var(--value)
-        position: relative
+        position: absolute
         top: -40px
         display: block
     
@@ -65,3 +93,12 @@
         &::after
             top: 93px
             transform: rotate(180deg)
+
+.bar-unit
+    height: var(--unitheight)
+    max-height: 5%
+    background-color: transparent
+    background-image: var(--uniturl)
+    background-size: 100% 100%
+    background-repeat: no-repeat
+    background-position: center

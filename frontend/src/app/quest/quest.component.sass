@@ -7,16 +7,59 @@
     align-items: center
 
 
-.quest-opened-card
-    height: 60%
-    width: 70%
-    background: red
-    border-radius: 20px
+.quest-card
+    height: 90%
+    width: 90%
+    background-color: transparent
+    background-image: url(../../assets/quest_card.svg)
+    background-size: 100% 100%
+    background-repeat: no-repeat
+    background-position: center
+    color: #bb1818ff
     display: flex
     justify-content: space-evenly
     align-items: center
     flex-direction: column
     position: relative
+    overflow: visible
+    padding: 0 20%
+
+    .quest-message
+        font-size: 5vw
+        text-align: center
+        span
+            font-size: 5vw
+
+    &::after
+        content: ""
+        position: absolute
+        background-color: transparent
+        background-size: 100% 100%
+        background-repeat: no-repeat
+
+    &.unopened
+        &::after
+            top: 0
+            left: -5%
+            width: 110%
+            height: 100%
+            background-image: url(../../assets/quest_card_unopened.svg)
+    
+    &.validating
+        &::after
+            content: "Erwarte Bestätigung"
+            display: flex
+            justify-content: center
+            align-items: center
+            font-family: lucky
+            font-size: x-large
+            color: #3d2500
+            top: 0
+            left: 0
+            width: 100%
+            height: 100%
+            background-image: url(../../assets/quest_card_validating.svg)
+
 
 .ban-state-info
     position: absolute
@@ -47,12 +90,92 @@
 
 
 .quest-btn-cont
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-image: url(../../assets/quest_card_overlay.svg)
+    background-size: 100% 100%
     display: flex
+    flex-wrap: wrap
     align-items: center
     justify-content: space-evenly
+    box-sizing: border-box
+    padding: 6% 10%
 
-.quest-unopened-card
-    background: blue
+#ban-btn
+    color: #bb1818ff
+    text-decoration: underline
+    font-family: soon
+    border: none
+    background-color: transparent
+    height: 10%
+    position: absolute
+    top: 6%
+    right: 5%
+    text-align: center
 
-.quest-validating-card
-    background: orange
+#surrender-btn
+    border: none
+    background-color: transparent
+    aspect-ratio: 1
+    height: 80%
+    background-image: url(../../assets/quest_button_surrender.svg)
+    background-size: 100% 100%
+
+#success-btn
+    border: none
+    background-color: transparent
+    aspect-ratio: 1
+    height: 80%
+    background-image: url(../../assets/quest_button_success.svg)
+    background-size: 100% 100%
+
+.cancel-btn
+    border: none
+    background-color: transparent
+    width: 100%
+    height: 20%
+    position: absolute
+    box-sizing: border-box
+    bottom: -7%
+    box-sizing: border-box
+    background-image: url(../../assets/quest_button_cancel.svg)
+    background-size: 100% 100%
+
+.send-btn
+    border: none
+    background-color: transparent
+    aspect-ratio: 1
+    height: 50%
+    background-image: url(../../assets/quest_button_send.svg)
+    background-size: 100% 100%
+
+input[type="text"], input[type="number"]
+    border: none
+    background-color: transparent
+    background-image: url(../../assets/quest_input.svg)
+    background-size: 100% 100%
+    color: #bb1818
+    border-radius: 0
+    padding: 5% 5%
+    outline: none
+
+    
+    &::-webkit-input-placeholder
+        color: #9f2525
+
+input[type="text"]
+    font-size: 6vw
+    width: 70%
+    height: 90%
+    font-family: soon
+    
+input[type="number"]
+    box-sizing: border-box
+    font-size: 10vw
+    width: 3em
+    font-family: lucky
+    height: 70%
+    text-align: center

@@ -69,11 +69,10 @@ export class StatsComponent implements OnInit, AfterViewInit {
       this.swiperTransform = 'transformY(0)'
       this.swiperIndex = 0
     }
-    console.log("init", this.swiperTransform)
 
     const statsUrl = "registry/statsdata/"
     this._api.fetchData(statsUrl).subscribe(
-      res => {this.statsData = res; this.numStats = Object.keys(this.statsData).length}
+      res => {this.statsData = res; this.numStats = Object.keys(this.statsData).length; console.log(this.statsData)}
     )
   }
 
@@ -89,5 +88,8 @@ export class StatsComponent implements OnInit, AfterViewInit {
   }
   min(a: number, b: number): number {
     return Math.min(a, b)
+  }
+  range(n: number): number[] {
+    return [...Array(n).keys()]
   }
 }

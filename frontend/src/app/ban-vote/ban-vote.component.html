@@ -1,10 +1,5 @@
-<div class="card action-card">
-    <p>Was denkst du: Soll {{banData.item.name}} als Gegenstand gebannt werden?</p>
-    <p>Begründung: {{banData.note}}</p>
-    <p>Pro: {{banData.pro}}</p>
-    <p>Con: {{banData.con}}</p>
-    <div class="actn-btn-cont">
-        <button (click)="voteBan(false)">Nee kann bleiben</button>
-        <button (click)="voteBan(true)">Ja bannen!</button>
-    </div>
-</div>
+<div class="banvote-message">Soll der Gegenstand {{banData.item.name}} im Spiel bleiben?</div>
+<div class="banvote-message">Warum die Frage?: {{banData.note}}</div>
+<div class="vote-bar" [style.--ban]="banData.ban" [style.--keep]="banData.keep"></div>
+<button class="banvote-keep" (click)="voteBan(false)"></button>
+<button class="banvote-ban" (click)="voteBan(true)"></button>

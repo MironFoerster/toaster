@@ -1,18 +1,33 @@
 <div class="swipe-cont" [style.transform]="swiperTransform" [class.transitioning]="isTransitioning">
     <ng-container *ngFor="let stat of statsData | keyvalue">
-        <ng-container *ngTemplateOutlet="statSection; context: {$implicit: stat.value}"></ng-container>
+        <ng-container *ngTemplateOutlet="statSection; context: {stat: stat.value, statbartype: stat.key === 'distance' ? 'chunk' : 'block', negative: stat.key === 'score'}"></ng-container>
     </ng-container>
-</div>   
-<ng-template #statSection let-stat>
-    <div class="stat-section-cont" [style.height]="statHeight+'px'">
+</div>
+
+
+<ng-template #statSection let-stat="stat" let-statbartype="statbartype" let-negative="negative">
+    <div class="stat-section-cont" [style.height]="statHeight+'px'"
+                                    [style.--unitheight]="100/(stat.max_value-(stat.min_value || 0))+'%'"
+                                    [style.--barheaddisplay]="statbartype=='chunk'? 'inline' : 'none'"
+                                    style='--dfltuniturl: url("../../assets/stats_bar_{{statbartype}}.svg");
+                                           --neguniturl: url("../../assets/stats_bar_neg_{{statbartype}}.svg")'>
         <div class="stat-title">{{ stat.title }}</div>
-        <div class="bars-cont">
-            <div *ngFor="let user of stat.personal_values" class="stat-bar" [style.--value]="stringWrap(user.value)"
-                                                                            [style.--username]="stringWrap(user.username)"
-                                                                            [style.height]="abs(user.value*100/(stat.max_value-min((stat.min_value || 0), 0)))+'%'"
-                                                                            [style.bottom]="((stat.min_value || 0) < 0? -stat.min_value*100/(stat.max_value-stat.min_value) : 0 )+'%'"
-                                                                            [class.negative]="user.value<0">
-            </div>
+        <div class="stat-content">
+            <ng-container [ngTemplateOutlet]="barsContainer" [ngTemplateOutletContext]="{stat: stat, sign: 1}"></ng-container>
+            <div class="hr"></div>
+            <ng-container *ngIf="negative" [ngTemplateOutlet]="barsContainer" [ngTemplateOutletContext]="{stat: stat, sign: -1}"></ng-container>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #barsContainer let-stat="stat" let-sign="sign">
+    <div class="bars-cont" [class.negative]="sign<0">
+        <div *ngFor="let user of stat.personal_values" class="stat-bar" [style.--value]="stringWrap(user.value)"
+                                                                        [style.--username]="stringWrap(user.username)">
+            <ng-container *ngIf="(user.value*sign)>0">
+                <div *ngFor="let _ of range(abs(user.value))" class="bar-unit"></div>
+            </ng-container>
         </div>
     </div>
 </ng-template>
