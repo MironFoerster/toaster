@@ -15,7 +15,7 @@ export class LoginComponent {
 
   loginSuccess(res: { token: string; }) {
     localStorage.setItem('token', res.token);
-    this._router.navigate(['']);
+    this._router.navigate(['stats']);
   }
 
   loginFailure(err: { message: any; }) {
