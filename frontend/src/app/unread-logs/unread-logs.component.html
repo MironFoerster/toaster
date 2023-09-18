@@ -1,7 +1,7 @@
 <div class="overlay" (click)="handleButtonClick($event)">
 
     <div id="reading-log-card-container" [class.active]="['reading', 'read'].includes(readingState)">
-        <app-log-card *ngIf="readingLogSwitch" [entry]="readingLog" [username]="username"></app-log-card>
+        <app-log-card *ngIf="readingLogSwitch" [entry]="readingLog" [sessionUsername]="sessionUsername"></app-log-card>
     </div>
 
     <div id="unread-logs-btn" class="unread-logs-message" [class.nounread]="readingState === 'nounread'"

@@ -9,6 +9,6 @@
     <!-- <h3>{{ blog.title }}</h3> -->
     <p class="blog-date">{{ parseDate(blog.date) }}</p>
     <!-- <p>{{ blog.log.message }}</p> -->
-    <p class="blog-author">{{ blog.username }}</p>
+    <p class="blog-author">{{ blog.username===sessionUsername? "Du" : blog.username }}</p>
     
 </div>

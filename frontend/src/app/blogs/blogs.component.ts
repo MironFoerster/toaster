@@ -9,6 +9,7 @@ import { slideInOut } from '../app.animations';
   animations: [slideInOut]
 })
 export class BlogsComponent implements OnInit {
+  sessionUsername: string
   newBlogState: string = "default"
   inputText: string
   blogs: any[] = [];
@@ -19,6 +20,11 @@ export class BlogsComponent implements OnInit {
 
   ngOnInit(): void {
     const blogUrl = "registry/blogdata/";
+    const userUrl = "userdata/";
+
+    this._api.fetchData(userUrl).subscribe(res => {
+      this.sessionUsername = res.username; console.log(res.username)
+    })
     this._api.fetchData(blogUrl).subscribe(
       res => this.blogs = res
     )

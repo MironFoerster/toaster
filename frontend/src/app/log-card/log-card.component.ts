@@ -18,7 +18,7 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 })
 export class LogCardComponent implements OnInit {
   @Input() entry: any
-  @Input() username: string
+  @Input() sessionUsername: string
 
   //@HostBinding("@fadeInOut") state = true
   @HostBinding("class.surrender") surrender: boolean = false
@@ -28,13 +28,13 @@ export class LogCardComponent implements OnInit {
   @HostBinding("class.info") info: boolean = false
 
   ngOnInit(): void {
-    if (this.entry.surrender && this.entry.killername!==this.username && this.entry.hasOwnProperty('surrender')) {
+    if (this.entry.surrender && this.entry.killername!==this.sessionUsername && this.entry.hasOwnProperty('surrender')) {
       this.surrender = true
-    } else if (!this.entry.surrender && this.entry.killername!==this.username && this.entry.hasOwnProperty('surrender')) {
+    } else if (!this.entry.surrender && this.entry.killername!==this.sessionUsername && this.entry.hasOwnProperty('surrender')) {
       this.success = true
-    } else if (this.entry.surrender && this.entry.killername===this.username || !this.entry.surrender && this.entry.victimname===this.username) {
+    } else if (this.entry.surrender && this.entry.killername===this.sessionUsername || !this.entry.surrender && this.entry.victimname===this.sessionUsername) {
       this.myfailure = true
-    } else if (!this.entry.surrender && this.entry.killername===this.username || this.entry.surrender && this.entry.victimname===this.username) {
+    } else if (!this.entry.surrender && this.entry.killername===this.sessionUsername || this.entry.surrender && this.entry.victimname===this.sessionUsername) {
       this.mytriumph = true
     } else if (!this.entry.hasOwnProperty('surrender')) {
       this.info = true

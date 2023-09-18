@@ -10,8 +10,7 @@ import { slideInOut } from '../app.animations';
   animations: [slideInOut]
 })
 export class LogsComponent implements OnInit {
-  username: string
-
+  sessionUsername: string
   entries: any[] = [];
   
   @HostBinding('@slideInOut') get slideInOut() {return}
@@ -25,7 +24,7 @@ export class LogsComponent implements OnInit {
     const infoUrl = "registry/infodata/";
 
     this._api.fetchData(userUrl).subscribe(res => {
-      this.username = res.username; console.log(res.username)
+      this.sessionUsername = res.username; console.log(res.username)
     })
     const logObserve: Observable<any> = this._api.fetchData(logUrl)
     const infoObserve: Observable<any> = this._api.fetchData(infoUrl)

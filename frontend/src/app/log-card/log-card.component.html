@@ -5,11 +5,11 @@
     <ng-container *ngIf="entry.surrender; then surrenderedBlock else killedBlock"></ng-container>
     
     <ng-template #surrenderedBlock>
-        <p>{{ entry.killername===username? "Du hast" : entry.killername+" hat" }} es nicht geschafft, {{ entry.victimname===username? "dich" : entry.victimname }} mit {{ entry.item.prep }} {{ entry.item.name }} {{ entry.verb.zu }}</p>
+        <p>{{ entry.killername===sessionUsername? "Du hast" : entry.killername+" hat" }} es nicht geschafft, {{ entry.victimname===sessionUsername? "dich" : entry.victimname }} mit {{ entry.item.prep }} {{ entry.item.name }} {{ entry.verb.zu }}</p>
     </ng-template>
 
     <ng-template #killedBlock>
-        <p>{{ entry.killername===username? "Du hast" : entry.killername+" hat" }} {{ entry.victimname===username? "dich" : entry.victimname }} mit {{ entry.item.prep }} {{ entry.item.name }} {{ entry.verb.ge }}</p>
+        <p>{{ entry.killername===sessionUsername? "Du hast" : entry.killername+" hat" }} {{ entry.victimname===sessionUsername? "dich" : entry.victimname }} mit {{ entry.item.prep }} {{ entry.item.name }} {{ entry.verb.ge }}</p>
     </ng-template>
         
 </ng-template>

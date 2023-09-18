@@ -13,7 +13,7 @@ export class UnreadLogsComponent implements OnInit {
   readingLog: any;
   readingLogSwitch: boolean = false;
   readingState: string
-  username: string
+  sessionUsername: string
 
   constructor(private _api: ApiService) {}
 
@@ -22,7 +22,7 @@ export class UnreadLogsComponent implements OnInit {
     const unreadLogsUrl = "registry/unreadlogdata/";
 
     this._api.fetchData(userUrl).subscribe(res => {
-      this.username = res.username; console.log(res.username)
+      this.sessionUsername = res.username; console.log(res.username)
     })
     this._api.fetchData(unreadLogsUrl).subscribe(
       res => {
