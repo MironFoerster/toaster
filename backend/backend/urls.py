@@ -4,6 +4,8 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from toast_auth import views as auth_views
 import debug_toolbar
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 
 urlpatterns = [
     path('__debug__/', include(debug_toolbar.urls)),
@@ -13,5 +15,6 @@ urlpatterns = [
     path('testtoken/', auth_views.test_token),
     path('registry/', include('registry.urls')),
     path('state/', include('state.urls')),
-    
 ]
+
+urlpatterns += staticfiles_urlpatterns()
