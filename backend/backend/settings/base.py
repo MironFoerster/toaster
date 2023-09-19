@@ -18,9 +18,11 @@ INSTALLED_APPS = [
     'toast_auth',
     'registry',
     'state',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -102,3 +104,13 @@ CORS_ALLOW_HEADERS = [
     'authorization',
     'content-type'
 ]
+
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': lambda request: True,
+    'INTERCEPT_REDIRECTS': False,
+    'INTERNAL_IPS': [
+        '192.168.2.106',
+        '127.0.0.1',
+        'localhost',
+    ]
+}
