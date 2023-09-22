@@ -9,10 +9,10 @@
 
 .quest-card
     height: 90%
-    width: 90%
+    width: 90vw
     background-color: transparent
     background-image: url(../../assets/quest_card.svg)
-    background-size: 100% 100%
+    background-size: contain
     background-repeat: no-repeat
     background-position: center
     color: #bb1818ff
@@ -23,12 +23,13 @@
     position: relative
     overflow: visible
     padding: 0 20%
+    transition: height 0.4s ease
 
     .quest-message
-        font-size: 5vw
+        font-size: 7vw
         text-align: center
         span
-            font-size: 5vw
+            font-size: 7vw
 
     &::after
         content: ""
@@ -38,21 +39,30 @@
         background-repeat: no-repeat
 
     &.unopened
+        height: 70%
+        width: 70vw
+
         &::after
-            top: 0
-            left: -5%
-            width: 110%
-            height: 100%
+            top: -10%
+            left: 0
+            width: 100%
+            height: 120%
             background-image: url(../../assets/quest_card_unopened.svg)
+            background-size: contain
+            background-repeat: no-repeat
+            background-position: center
     
     &.validating
         &::after
             content: "Erwarte Bestätigung"
+            text-align: center
+            padding: 0 20%
+            box-sizing: border-box
             display: flex
             justify-content: center
             align-items: center
             font-family: lucky
-            font-size: x-large
+            font-size: large
             color: #3d2500
             top: 0
             left: 0
@@ -95,7 +105,7 @@
     left: 0
     width: 100%
     height: 100%
-    background-image: url(../../assets/quest_card_overlay.svg)
+    background-image: url(../../assets/quest_card.svg)
     background-size: 100% 100%
     display: flex
     flex-wrap: wrap
