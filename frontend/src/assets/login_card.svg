@@ -7,14 +7,14 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   viewBox="0 0 20.578699 22.209007"
+   viewBox="0 0 20.578699 24.175478"
    preserveAspectRatio="none"
    version="1.1"
    id="svg4"
    sodipodi:docname="login_card.svg"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
    width="20.578699"
-   height="22.209007">
+   height="24.175478">
   <metadata
      id="metadata10">
     <rdf:RDF>
@@ -23,7 +23,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -42,15 +42,19 @@
      inkscape:window-height="974"
      id="namedview6"
      showgrid="false"
-     inkscape:zoom="55.393385"
-     inkscape:cx="9.8199641"
-     inkscape:cy="19.941132"
+     inkscape:zoom="19.244341"
+     inkscape:cx="-5.4018659"
+     inkscape:cy="9.9282831"
      inkscape:window-x="-11"
      inkscape:window-y="-11"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg4"
      inkscape:document-rotation="0"
-     inkscape:snap-global="false" />
+     inkscape:snap-global="false"
+     fit-margin-bottom="2"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0" />
   <path
      fill="#ff0066"
      d="m 20.500817,7.2369301 c 0.370063,2.7639419 -0.72212,4.3345089 -0.2978,6.2553689 0.492788,2.23081 0.186509,6.436437 -3.852525,6.794376 -4.039035,0.357939 -3.514938,1.601375 -6.7216134,1.862796 C 6.4222035,22.410892 3.1908951,20.660981 1.8005293,18.722949 0.41016347,16.784917 2.0550555,15.032806 0.64709697,12.454013 -0.76086143,9.8752186 0.45985467,7.481862 1.1944658,6.0859424 2.0165409,4.5238224 1.9414236,4.0486735 3.0810804,1.8059367 4.2207372,-0.43680007 10.4694,-0.21740727 11.921773,0.48213013 c 1.452373,0.69953737 3.19498,0.2837896 5.248795,1.51484847 2.053815,1.231059 2.960186,2.4760099 3.330249,5.2399515 z"
