@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewContainerRef } from '@angular/core';
 import { ApiService } from '../services/api.service';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-ban-vote',
@@ -10,12 +11,16 @@ export class BanVoteComponent {
   @Input() banData: any;
   @Output() requestClose = new EventEmitter();
 
-  constructor(private _api: ApiService) {}
+  constructor(private _api: ApiService, private _viewContainer: ViewContainerRef, private _loader: LoaderService) {}
 
   voteBan(ban: boolean) {
     const voteBanUrl: string = "state/voteban/";
+    this._loader.startLoading("sende...", this._viewContainer)
     this._api.sendData(voteBanUrl, {ban_id: this.banData.id, ban: ban}).subscribe(
-      res => this.requestClose.emit()
+      res => {
+        this._loader.endLoading()
+        this.requestClose.emit()
+      }
     )
   }
 }

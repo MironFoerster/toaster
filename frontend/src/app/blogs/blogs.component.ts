@@ -1,6 +1,8 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit, ViewContainerRef } from '@angular/core';
 import { ApiService } from '../services/api.service'
 import { slideInOut } from '../app.animations';
+import { Observable, combineLatest } from 'rxjs';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-blogs',
@@ -16,18 +18,22 @@ export class BlogsComponent implements OnInit {
 
   @HostBinding('@slideInOut') get slideInOut() {return}
 
-  constructor(private _api: ApiService) { }
+  constructor(private _api: ApiService, private _loader: LoaderService, private _viewContainer: ViewContainerRef) { }
 
   ngOnInit(): void {
     const blogUrl = "registry/blogdata/";
     const userUrl = "userdata/";
+    
+    this._loader.startLoading("lade blogs...", this._viewContainer)
 
-    this._api.fetchData(userUrl).subscribe(res => {
-      this.sessionUsername = res.username; console.log(res.username)
+    const userObserve: Observable<any> = this._api.fetchData(userUrl)
+    const blogObserve: Observable<any> = this._api.fetchData(blogUrl)
+
+    combineLatest([userObserve, blogObserve]).subscribe(([user, blogs]) => {
+      this.sessionUsername = user.username; console.log(user.username)
+      this.blogs = blogs
+      this._loader.endLoading()
     })
-    this._api.fetchData(blogUrl).subscribe(
-      res => this.blogs = res
-    )
   }
 
   submitNewBlog() {

@@ -11,6 +11,7 @@ import {
   sequence,
   // ...
 } from '@angular/animations';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-quest',
@@ -50,15 +51,17 @@ export class QuestComponent {
   showModal: boolean;
   actionState: string = ''
 
-  constructor(private _api: ApiService, private _modal: ModalService, private _viewContainer: ViewContainerRef) {}
+  constructor(private _api: ApiService, private _modal: ModalService, private _loader: LoaderService, private _viewContainer: ViewContainerRef) {}
 
   openCard() {
     this.questData.unopened = false
 
     const questOpenedUrl: string = "state/setquestopened/";
-    this._api.sendData(questOpenedUrl, {quest_id: this.questData.id}).subscribe(
-      res => this.questData.state = "active"
-    )
+    this._loader.startLoading("sende...", this._viewContainer)
+    this._api.sendData(questOpenedUrl, {quest_id: this.questData.id}).subscribe(res => {
+      this._loader.endLoading()
+      this.questData.state = "active"
+    })
   }
 
   openActions() {
@@ -74,24 +77,29 @@ export class QuestComponent {
 
   surrender() {
     const surrenderQuestUrl: string = "state/surrenderquest/";
-    this._api.sendData(surrenderQuestUrl, {quest_id: this.questData.id}).subscribe(
-      res => this.questRemoved.emit()
-    )
+    this._loader.startLoading("sende...", this._viewContainer)
+    this._api.sendData(surrenderQuestUrl, {quest_id: this.questData.id}).subscribe(res => {
+      this._loader.endLoading()
+      this.questRemoved.emit()
+    })
   }
 
   requestKillVal() {
     const requestValUrl: string = "state/requestkillval/";
-    this._api.sendData(requestValUrl, {quest_id: this.questData.id, distance: this.distance}).subscribe(
-      res => this.questData.state = "validating"
-    )
+    this._loader.startLoading("sende...", this._viewContainer)
+    this._api.sendData(requestValUrl, {quest_id: this.questData.id, distance: this.distance}).subscribe(res => {
+        this._loader.endLoading()
+        this.questData.state = "validating"
+    })
   }
 
   initBan() {
     const initBanUrl: string = "state/initiateban/";
-    console.log(this.questData)
-    this._api.sendData(initBanUrl, {item_id: this.questData.item.id, note: this.ban_note}).subscribe(
-      res => this.questData.item.ban_state = "banning"
-    )
+    this._loader.startLoading("sende...", this._viewContainer)
+    this._api.sendData(initBanUrl, {item_id: this.questData.item.id, note: this.ban_note}).subscribe(res => {
+      this._loader.endLoading()
+      this.questData.item.ban_state = "banning"
+    })
   }
 
   getSuccessConfirmMessage(): string {

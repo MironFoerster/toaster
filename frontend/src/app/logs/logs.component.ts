@@ -1,7 +1,9 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { AfterViewInit, ViewContainerRef, Component, HostBinding, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service'
 import { Observable, combineLatest } from 'rxjs';
 import { slideInOut } from '../app.animations';
+import { LoaderService } from '../services/loader.service';
+import { ModalService } from '../services/modal.service';
 
 @Component({
   selector: 'app-logs',
@@ -16,25 +18,26 @@ export class LogsComponent implements OnInit {
   @HostBinding('@slideInOut') get slideInOut() {return}
 
 
-  constructor(private _api: ApiService) { }
+  constructor(private _api: ApiService, private _loader: LoaderService, private _modal: ModalService, private _viewContainer: ViewContainerRef) { }
 
   ngOnInit(): void {
-    const userUrl = "userdata/";
-    const logUrl = "registry/logdata/";
-    const infoUrl = "registry/infodata/";
+     //this._modal.openModal("hihihi", this._viewContainer)
+     const userUrl = "userdata/";
+     const logUrl = "registry/logdata/";
+     const infoUrl = "registry/infodata/";
 
-    this._api.fetchData(userUrl).subscribe(res => {
-      this.sessionUsername = res.username; console.log(res.username)
-    })
-    const logObserve: Observable<any> = this._api.fetchData(logUrl)
-    const infoObserve: Observable<any> = this._api.fetchData(infoUrl)
+     this._loader.startLoading("lade logs...", this._viewContainer)
 
-    combineLatest([logObserve, infoObserve]).subscribe(([logs, infos]) => {
-      console.log(infos)
-      this.entries = [...logs, ...infos].sort((a,b)=> b.date > a.date? 1 : -1)
-      console.log(this.entries)
-    });
+     const userObserve: Observable<any> = this._api.fetchData(userUrl)
+     const logObserve: Observable<any> = this._api.fetchData(logUrl)
+     const infoObserve: Observable<any> = this._api.fetchData(infoUrl)
+ 
+     combineLatest([userObserve, logObserve, infoObserve]).subscribe(([user, logs, infos]) => {
+       console.log(infos)
+       this.sessionUsername = user.username
+       this.entries = [...logs, ...infos].sort((a,b)=> b.date > a.date? 1 : -1)
+       console.log(this.entries)
+       this._loader.endLoading()
+     });
   }
-  
-
 }
