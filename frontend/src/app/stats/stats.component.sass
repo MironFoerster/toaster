@@ -1,7 +1,9 @@
 :host
     display: block
     width: 100%
-    height: 100%
+    height: 100vh
+    bottom: 0
+    position: fixed
 
 .swipe-cont
     position: relative
@@ -17,30 +19,37 @@
 .stat-section-cont
     width: 100%
     box-sizing: border-box
-    padding: 15vh 0 20vh
+    padding: 15vh 0 10vh
     display: flex
     flex-direction: column
     align-items: stretch
     justify-content: space-between
 
 .stat-title
-    display: flex
-    align-items: center
-    justify-content: center
-    height: 10%
-    font-size: 10vw
+    flex-grow: 1
+    text-align: center
+    font-size: 8vw
+    margin: 0 5vw
     font-family: lucky
     
 
 .stat-content
     overflow-x: auto
-    flex-grow: 1
-    padding: 0 5vw
-    display: flex
-    flex-direction: column
-    align-items: stretch
-    justify-content: space-between
+    flex-grow: 30
     box-sizing: border-box
+
+    .scroll-cont
+        overflow: visible
+        width: 160vw
+        height: 100%
+        padding: 0 5vw
+        display: flex
+        flex-direction: column
+        align-items: stretch
+        justify-content: space-between
+        box-sizing: content-box
+
+
 
 .hr
     width: 100%
@@ -49,54 +58,71 @@
 
 .bars-cont
     flex-grow: 10
+    width: 100%
     display: flex
     flex-direction: row
     align-items: stretch
     justify-content: flex-start
+    --bar-radius: 5vw 5vw 0 0 
     --justify: flex-end
     --uniturl: var(--dfltuniturl)
+    --bar-padding: 10vw 1vw 1vw 1vw
+    --value-inset: 1em 0 auto 0
+
+    > :nth-of-type(odd)
+        background-color: rgba(0,0,0, 0.2)
 
     &.negative
+        --bar-radius: 0 0 5vw 5vw
+        --bar-padding: 1vw 1vw 10vw 1vw
         --justify: flex-start
         --uniturl: var(--neguniturl)
+        --value-inset: auto 0 1em 0
 
-.stat-bar
-    position: relative
-    width: 15vw
+
+.labels-cont
+    flex-grow: 0
+    margin: 0 -2.5%
+    padding: 0 2.5%
+    display: flex
+    flex-direction: row
+    align-items: stretch
+    justify-content: flex-start
+    background-image: url(../../assets/stats_base.svg)
+    background-size: 100% 100%
+
+.bar-label
+    box-sizing: border-box
+    text-align: center
+    width: 20vw
     background: transparent
     flex-shrink: 0
-    margin: 0 5px
+    padding: 1vw 1vw//var(--bar-padding)
+
+.stat-bar
+    box-sizing: border-box
+    border-radius: var(--bar-radius)
+    position: relative
+    width: 20vw
+    background: transparent
+    flex-shrink: 0
+    padding: var(--bar-padding)
     transform-origin: bottom
     display: flex
     flex-direction: column
     align-items: stretch
     justify-content: var(--justify)
 
-    &::before
-        content: var(--username)
-        position: absolute
-        top: -50px
-        display: block
-        transform: rotate(-45deg)
     &::after
         content: var(--value)
+        text-align: center
         position: absolute
-        top: -40px
+        inset: var(--value-inset)
         display: block
-    
-    &.negative
-        transform: rotate(180deg)
-
-        &::before
-            top: 135px
-            transform: rotate(135deg)
-        &::after
-            top: 93px
-            transform: rotate(180deg)
 
 .bar-unit
     height: var(--unitheight)
-    max-height: 5%
+    max-height: 2vh
     background-color: transparent
     background-image: var(--uniturl)
     background-size: 100% 100%
