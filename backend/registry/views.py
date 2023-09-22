@@ -14,10 +14,9 @@ from django.db.models import Sum
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def log_data(request):
-    #logs = Log.objects.all()
-    #serializer = LogSerializer(logs, many=True)
-
-    return Response("alright")#Response(serializer.data)
+    logs = Log.objects.all()
+    serializer = LogSerializer(logs, many=True)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
