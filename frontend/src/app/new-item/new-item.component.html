@@ -13,7 +13,7 @@
                 </div>
             <p>umgebracht.</p>
         </div>
-        <button id="item-send-btn" (click)="submitNewItem()"></button>
+        <button id="item-send-btn" (click)="openModal(getItemConfirmMessage(), submitNewItem.bind(this))"></button>
         <button routerLink=".." id="item-close-btn"></button>
     </div>
 </div>
