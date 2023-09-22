@@ -28,6 +28,7 @@ import { QuestComponent } from './quest/quest.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { UnreadLogsComponent } from './unread-logs/unread-logs.component';
 import { LogCardComponent } from './log-card/log-card.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { LogCardComponent } from './log-card/log-card.component';
     ConfirmModalComponent,
     UnreadLogsComponent,
     LogCardComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
