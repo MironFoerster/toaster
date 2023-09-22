@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, OnInit, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { slideInOut } from '../app.animations';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-stats',
@@ -19,7 +20,7 @@ export class StatsComponent implements OnInit, AfterViewInit {
 
   @HostBinding('@slideInOut') get slideInOut() {return}
 
-  constructor(private _api: ApiService, private _el: ElementRef) { }
+  constructor(private _api: ApiService, private _el: ElementRef, private _loader: LoaderService, private _viewContainer: ViewContainerRef) { }
 
 
   //@HostBinding('style.transform') hostTransform: string;
@@ -71,9 +72,12 @@ export class StatsComponent implements OnInit, AfterViewInit {
     }
 
     const statsUrl = "registry/statsdata/"
-    this._api.fetchData(statsUrl).subscribe(
-      res => {this.statsData = res; this.numStats = Object.keys(this.statsData).length; console.log(this.statsData)}
-    )
+    this._loader.startLoading("lade statistiken...", this._viewContainer)
+    this._api.fetchData(statsUrl).subscribe(res => {
+      this._loader.endLoading()
+      this.statsData = res
+      this.numStats = Object.keys(this.statsData).length; console.log(this.statsData)
+    })
   }
 
   ngAfterViewInit() {
