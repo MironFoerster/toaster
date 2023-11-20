@@ -1,6 +1,6 @@
 <div class="swipe-cont" [style.transform]="swiperTransform" [class.transitioning]="isTransitioning">
     <ng-container *ngFor="let stat of statsData | keyvalue">
-        <ng-container *ngTemplateOutlet="statSection; context: {stat: stat.value, statbartype: stat.key === 'distance' ? 'chunk' : 'block', negative: stat.key === 'score'}"></ng-container>
+        <ng-container *ngTemplateOutlet="statSection; context: {stat: stat.value, statbartype: stat.key === 'distance' ? 'chunk' : 'block', negative: stat.key === '1score'}"></ng-container>
     </ng-container>
 </div>
 
