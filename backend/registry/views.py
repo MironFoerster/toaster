@@ -113,12 +113,12 @@ def stats_data(request):
         })
         statsData["1score"]["personal_values"].append({
             "username": user.username,
-            "value": statsData["kills"]["personal_values"][-1]["value"] - statsData["deaths"]["personal_values"][-1]["value"]
+            "value": statsData["2kills"]["personal_values"][-1]["value"] - statsData["3deaths"]["personal_values"][-1]["value"]
         })
     
     for name, stat in statsData.items():
         stat["max_value"] = max(stat["personal_values"], key=lambda dict: dict["value"])["value"]
-        if name == "score":
+        if name == "1score":
             stat["min_value"] = min(stat["personal_values"], key=lambda dict: dict["value"])["value"]
             stat["personal_values"] = reversed(sorted(stat["personal_values"], key=lambda user: user["value"] + stat["min_value"] if user["value"] > 0 else (-user["value"] if user["value"] < 0 else 0)))
             return Response(statsData)
