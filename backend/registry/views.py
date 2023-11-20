@@ -120,7 +120,7 @@ def stats_data(request):
         stat["max_value"] = max(stat["personal_values"], key=lambda dict: dict["value"])["value"]
         if name == "1score":
             stat["min_value"] = min(stat["personal_values"], key=lambda dict: dict["value"])["value"]
-            stat["personal_values"] = reversed(sorted(stat["personal_values"], key=lambda user: user["value"] + stat["min_value"] if user["value"] > 0 else (-user["value"] if user["value"] < 0 else 0)))
+            stat["personal_values"] = reversed(sorted(stat["personal_values"], key=lambda user: user["value"] - stat["min_value"] if user["value"] > 0 else (-user["value"] if user["value"] < 0 else 0)))
             return Response(statsData)
 
         stat["personal_values"] = reversed(sorted(stat["personal_values"], key=lambda user: user["value"]))
