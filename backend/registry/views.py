@@ -58,28 +58,28 @@ def unread_log_data(request):
 @permission_classes([IsAuthenticated])
 def stats_data(request):
     statsData = {
-        "kills": {
-            "title": "Lizenz zum Töten",
+        "2kills": {
+            "title": "Kills",
             "type": "bar",
             "unit": "Kills"},
-        "deaths": {
-            "title": "Tot, aber beschenkt",
+        "3deaths": {
+            "title": "Getötet",
             "type": "bar",
             "unit": "Tode"},
-        "surrenders": {
-            "title": "Aufgaben mag ich (nicht)",
+        "6surrenders": {
+            "title": "Aufgegeben",
             "type": "bar",
             "unit": "Aufgaben"},
-        "blocks": {
-            "title": "Unerreichbar",
+        "5blocks": {
+            "title": "Unsterblich",
             "type": "bar",
             "unit": "Blocks"},
-        "distance": {
-            "title": "Weltenbummler*in",
+        "4distance": {
+            "title": "Entfernungen",
             "type": "bar",
             "unit": "km"},
-        "score": {
-            "title": "Geben ist seliger als nehmen",
+        "1score": {
+            "title": "Score",
             "type": "bar",
             "unit": "Punkte"}
         }
@@ -91,27 +91,27 @@ def stats_data(request):
     logs = Log.objects.all()
 
     for user in users:
-        statsData["kills"]["personal_values"].append({
+        statsData["2kills"]["personal_values"].append({
             "username": user.username,
             "value": logs.filter(killername=user.username).filter(surrender=False).count()
         })
-        statsData["deaths"]["personal_values"].append({
+        statsData["3deaths"]["personal_values"].append({
             "username": user.username,
             "value": logs.filter(victimname=user.username).filter(surrender=False).count()
         })
-        statsData["surrenders"]["personal_values"].append({
+        statsData["6surrenders"]["personal_values"].append({
             "username": user.username,
             "value": logs.filter(killername=user.username).filter(surrender=True).count()
         })
-        statsData["blocks"]["personal_values"].append({
+        statsData["5blocks"]["personal_values"].append({
             "username": user.username,
             "value": logs.filter(victimname=user.username).filter(surrender=True).count()
         })
-        statsData["distance"]["personal_values"].append({
+        statsData["4distance"]["personal_values"].append({
             "username": user.username,
             "value": logs.filter(killername=user.username).filter(surrender=False).aggregate(Sum('distance'))["distance__sum"] or 0
         })
-        statsData["score"]["personal_values"].append({
+        statsData["1score"]["personal_values"].append({
             "username": user.username,
             "value": statsData["kills"]["personal_values"][-1]["value"] - statsData["deaths"]["personal_values"][-1]["value"]
         })
@@ -120,7 +120,7 @@ def stats_data(request):
         stat["max_value"] = max(stat["personal_values"], key=lambda dict: dict["value"])["value"]
         if name == "score":
             stat["min_value"] = min(stat["personal_values"], key=lambda dict: dict["value"])["value"]
-            stat["personal_values"] = reversed(sorted(stat["personal_values"], key=lambda user: user["value"] + stat["min_value"] if user["value"] > 0 else -user["value"] if user["value"] > 0 else 0))
+            stat["personal_values"] = reversed(sorted(stat["personal_values"], key=lambda user: user["value"] + stat["min_value"] if user["value"] > 0 else (-user["value"] if user["value"] < 0 else 0)))
             return Response(statsData)
 
         stat["personal_values"] = reversed(sorted(stat["personal_values"], key=lambda user: user["value"]))
