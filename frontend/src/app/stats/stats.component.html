@@ -14,14 +14,14 @@
         <div class="stat-title">{{ stat.title }}</div>
         <div class="stat-content">
             <div class="scroll-cont">
-            <ng-container [ngTemplateOutlet]="barsContainer" [ngTemplateOutletContext]="{stat: stat, sign: 1}"></ng-container>
-            <div class="labels-cont">
-                <div *ngFor="let user of stat.personal_values" class="bar-label" [style.--value]="stringWrap(user.value)"
-                                                                        [style.--username]="stringWrap(user.username)">
-                    {{ user.username }}
+                <ng-container [ngTemplateOutlet]="barsContainer" [ngTemplateOutletContext]="{stat: stat, sign: 1}"></ng-container>
+                <div class="labels-cont">
+                    <div *ngFor="let user of stat.personal_values" class="bar-label" [style.--value]="stringWrap(user.value)"
+                                                                            [style.--username]="stringWrap(user.username)">
+                        {{ user.username }}
+                    </div>
                 </div>
-            </div>
-            <ng-container *ngIf="negative" [ngTemplateOutlet]="barsContainer" [ngTemplateOutletContext]="{stat: stat, sign: -1}"></ng-container>
+                <ng-container *ngIf="negative" [ngTemplateOutlet]="barsContainer" [ngTemplateOutletContext]="{stat: stat, sign: -1}"></ng-container>
             </div>
         </div>
     </div>
