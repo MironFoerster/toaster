@@ -34,6 +34,8 @@ def quests_data(request):
         rand_verb = random.choices(KillVerb.objects.all(), [1/verb["frequency"] for verb in KillVerb.objects.values("frequency")], k=1)[0]
         rand_item.frequency += 1
         rand_item.save()
+        rand_verb.frequency += 1
+        rand_verb.save()
         already_victim_names = [quest.victim.username for quest in quests]
         victim_user = random.choice(User.objects.exclude(username__in=already_victim_names).exclude(username=request.user.username).exclude(is_staff=True))
         Quest.objects.create(item=rand_item, killer=request.user, victim=victim_user, verb=rand_verb)

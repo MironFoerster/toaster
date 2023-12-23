@@ -28,9 +28,9 @@ export class LogCardComponent implements OnInit {
   @HostBinding("class.info") info: boolean = false
 
   ngOnInit(): void {
-    if (this.entry.surrender && this.entry.killername!==this.sessionUsername && this.entry.hasOwnProperty('surrender')) {
+    if (this.entry.surrender && this.entry.killername!==this.sessionUsername && this.entry.victimname!==this.sessionUsername && this.entry.hasOwnProperty('surrender')) {
       this.surrender = true
-    } else if (!this.entry.surrender && this.entry.killername!==this.sessionUsername && this.entry.hasOwnProperty('surrender')) {
+    } else if (!this.entry.surrender && this.entry.killername!==this.sessionUsername && this.entry.victimname!==this.sessionUsername && this.entry.hasOwnProperty('surrender')) {
       this.success = true
     } else if (this.entry.surrender && this.entry.killername===this.sessionUsername || !this.entry.surrender && this.entry.victimname===this.sessionUsername) {
       this.myfailure = true
